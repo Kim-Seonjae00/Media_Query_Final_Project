@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="Address"> 
+ 	<select id="myAddressList" parameterType="String" resultType="address">
+		SELECT * FROM ADDRESS WHERE MID = #{mid}
+	</select>
+	
+	<insert id="addressAdd" parameterType="address">
+		INSERT INTO ADDRESS VALUES
+			(ADDRESS_SEQ.NEXTVAL, #{mid}, #{apostcode}, #{adrs1}, #{adrs2}, #{adrs3}, #{adrs4}, 1)
+	</insert>
+	
+	<update id="changeAll" parameterType="String">
+		UPDATE ADDRESS SET AFLAG = 0 WHERE MID = #{mid}
+	</update>
+	
+	<update id="addressPick" parameterType="int">
+		UPDATE ADDRESS SET AFLAG = 1 WHERE ANUM = #{anum}
+	</update>
+	
+	<delete id="addressDelete" parameterType="int">
+		DELETE FROM ADDRESS WHERE ANUM = #{anum}
+	</delete>
+	
+	<select id="addressCount" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM ADDRESS WHERE MID = #{mid}
+	</select>
+ </mapper>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases> 
+		<typeAlias alias="voucher" type="com.icia.yogiseo.dto.VoucherDTO"/>
+		<typeAlias alias="member" type="com.icia.yogiseo.dto.MemberDTO"/>
+		<typeAlias alias="memberBlackList" type="com.icia.yogiseo.dto.MemberBlackListDTO"/>
+		<typeAlias alias="store" type="com.icia.yogiseo.dto.StoreDTO"/>
+		<typeAlias alias="storeBlackList" type="com.icia.yogiseo.dto.StoreBlackListDTO"/>
+		<typeAlias alias="review" type="com.icia.yogiseo.dto.ReviewDTO"/>
+		<typeAlias alias="notice" type="com.icia.yogiseo.dto.NoticeDTO"/>
+		<typeAlias alias="address" type="com.icia.yogiseo.dto.AddressDTO"/>
+		<typeAlias alias="foodpreference" type="com.icia.yogiseo.dto.FoodPreferenceDTO"/>
+		<typeAlias alias="voucherBuy" type="com.icia.yogiseo.dto.VoucherBuyDTO"/>
+		<typeAlias alias="paging" type="com.icia.yogiseo.dto.PagingDTO"/>
+		<typeAlias alias="taste" type="com.icia.yogiseo.dto.TasteDTO"/>
+		<typeAlias alias="recommendResult" type="com.icia.yogiseo.dto.RecommendResultDTO"/>
+		<typeAlias alias="honeyCombo" type="com.icia.yogiseo.dto.HoneyComboDTO"/>
+		<typeAlias alias="orders" type="com.icia.yogiseo.dto.OrdersDTO"/>
+		<typeAlias alias="coupon" type="com.icia.yogiseo.dto.CouponDTO"/>
+		<typeAlias alias="search" type="com.icia.yogiseo.dto.SearchDTO"/>
+		<typeAlias alias="menu" type="com.icia.yogiseo.dto.MenuDTO"/>
+		<typeAlias alias="address" type="com.icia.yogiseo.dto.AddressDTO"/>
+		<typeAlias alias="booking" type="com.icia.yogiseo.dto.BookingDTO"/>
+		<typeAlias alias="cart" type="com.icia.yogiseo.dto.CartDTO"/>
+		<typeAlias alias="recomment" type="com.icia.yogiseo.dto.RecommentDTO"/>
+		<typeAlias alias="reviewJoinRecomment" type="com.icia.yogiseo.dto.ReviewJoinRecommentDTO"/>
+		<typeAlias alias="reviewRecommend" type="com.icia.yogiseo.dto.ReviewRecommendDTO"/>
+		<typeAlias alias="reviewReport" type="com.icia.yogiseo.dto.ReviewReportDTO"/>
+		<typeAlias alias="message" type="com.icia.yogiseo.dto.MessageDTO"/>
+		<typeAlias alias="rate" type="com.icia.yogiseo.dto.RateDTO"/>
+		<typeAlias alias="sender" type="com.icia.yogiseo.dto.SenderDTO"/>
+	</typeAliases>
+</configuration>

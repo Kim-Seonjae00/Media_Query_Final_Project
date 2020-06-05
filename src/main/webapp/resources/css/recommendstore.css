@@ -1,0 +1,394 @@
+@charset "UTF-8";
+	*{
+	 font-family: 'Noto Sans KR', sans-serif;
+	}
+	body{
+		margin:0;
+	}
+	.topnav{
+    overflow: hidden;
+    color: rgb(95, 0, 128);
+}
+.message{
+    margin: 0;
+    padding: 10px;
+    background-color: rgb(95, 0, 128);
+    color: white;
+    font-weight:300;
+}
+
+.menu a{
+    margin-left: 50px;
+    margin-right: 50px;
+    font-size: 20px;
+    font-weight: 700;
+    color: rgb(30, 30, 30);
+    display: inline-block;
+}
+a{
+    text-decoration: none;
+}
+.topnav a:hover{
+    color: gray;
+}
+#logo{
+    height: 170px;
+    width: 170px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.search{
+    width: 400px;
+    height: 40px;
+    margin: auto;
+    background-color: #eee;
+    border-radius: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+#searchword{
+    border: none;
+    width: 300px;
+    height: 20px;
+    background-color: #eee;
+    font-size: 15px;
+    color: #666;
+    font-weight:300;
+    text-align:center;
+}
+#searchword:focus{
+  outline: none;
+}
+#searchbtn{
+    border: none;
+    font-size: 25px;
+    background-color: none;
+    color: rgb(30, 30, 30);
+}
+#searchbtn:hover{
+  color: gray;
+}
+#searchbtn:focus{
+  outline: none;
+}
+
+
+* {box-sizing: border-box;}
+
+.mySlides {display: none;}
+img {vertical-align: middle;}
+
+/* Slideshow container */
+.slideshow-container {
+  /* max-width: 1000px; */
+  position: relative;
+  margin: auto;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active {
+  background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+@keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+/* On smaller screens, decrease text size */
+@media only screen and (max-width: 300px) {
+  .text {font-size: 11px}
+}
+.container{
+    overflow: hidden;
+    margin-bottom: 80px;
+}
+
+
+
+
+#sideMenu{
+  position: absolute;
+  left: 1800px;
+  top: 400px;
+  width: 60px;
+}
+.sideTab{
+  height: 60px;
+  text-align: center;
+  font-size: 20px;
+  border: 1px solid #ddd;
+  border-radius: 20%;
+  background-color:white;
+  color: rgb(95, 0, 128);
+  padding-top: 15px;
+}
+.sideTab a{
+  text-decoration: none;
+}
+.sideTab a:hover{
+  color: #ddd;
+}
+
+
+.article{
+    width: 960px;
+    margin: auto;
+}
+.category{
+    width: 200px;
+    height: 200px;
+    border: 0.7px solid gray;
+    color: rgb(30, 30, 30);
+    border-radius: 50%;
+    float: left;
+    font-size: 20px;
+    margin: 20px;
+    padding: 10px;
+}
+
+
+#categoryImg {
+  vertical-align: middle;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+}
+	
+	#main{
+		margin:auto;
+	}
+	.storeProfile{
+		width:800px;
+		height:200px;
+		margin:auto;
+		padding-top:20px;
+	}
+	
+	#storeImg{
+		vertical-align: middle;
+		float:left;
+		width:150px;
+		height:150px;
+		border-radius: 50%;
+	}
+	.storeInfo{
+		vertical-align: middle;
+		float:left;
+		width:550px;
+		height:130px;
+		text-align:left;
+		padding-top:20px;
+	}
+	#storeInfoOdd{
+		vertical-align: middle;
+		float:left;
+		height:130px;
+		text-align:left;
+		padding-left:40px;
+	}
+	#storeInfoEven{
+		vertical-align: middle;
+		float:left;
+		height:130px;
+		text-align:right;
+		padding-right:40px;
+		margin-left:50px;
+	}
+	.storeName{
+		font-size:30px;
+	}
+	.storePhone{
+		font-size:20px;
+	}
+	#main{
+		margin-top:60px;
+	}
+	.storeCategory{
+		color:gray;
+	}
+	.storeName a{
+		color:black;	
+	}
+	#storeProfileOdd{
+		background-color:rgb(245,243,248);
+		padding-left:40px;
+
+	}
+	.recommendtitle{
+		width:100%;
+		height:200px;
+		background-color:rgb(209,180,210);
+		text-align:center;
+		padding-top:20px;
+		font-size:25px;
+		color:rgb(42,23,55);
+	}
+	.recommendtitle h2{
+		font-weight:900;
+		font-family: 'Song Myung', serif;
+	}
+	.recommendtitle h4{
+		font-weight:300;
+		font-size:20px;
+		font-family: 'Song Myung', serif;
+	}
+	.recommendheader{
+		text-align:left;
+		background-color:rgb(245,243,248);
+		width:100%;
+		height:60px;
+	}
+	#logoimg{
+		font-size:25px;
+		color:rgb(95, 0, 128);
+		padding:15px;
+	}
+	#searchbtn{
+		color:rgb(95, 0, 128);
+		border-top-right-radius:25px;
+		border-bottom-right-radius:25px;
+	}
+	#searchword{
+		width:300px;
+		height:40px;
+		border-top-left-radius:25px;
+		border-bottom-left-radius:25px;
+		padding:5px;
+		
+	}
+	.recobtn{
+		width:90px;
+		height:60px;
+		background-color:rgb(245,243,248);
+		color:rgb(95, 0, 128);
+		border:none;
+		float:right;
+		padding:10px;
+		font-size:14px;
+	}
+	.fa-child{
+		font-size:30px;
+	}
+	.recommendlist{
+		
+		width:40%;
+		margin:auto;
+		height:220px;
+		border-bottom:0.7px solid lightgray;
+		text-align:left;
+	}
+	.imgArea{
+		border:none;
+		width:20%;
+		display:block;
+		float:left;
+		overflow:hidden;
+		margin:0;
+		margin-right:20px;
+		padding-top:10px;
+		
+	}
+	.storeimg{
+		width:150px;
+		display:block;
+		border:none;
+		height:150px;
+		overflow:hidden;
+		float:left;
+		margin:auto;
+	}
+	.infoArea{
+		padding-top:20px;
+		border:none;
+		width:45%;
+		display:block;
+		float:left;
+		overflow:hidden;
+	}
+	.moreInfoArea{
+		display:block;
+		float:left;
+		ovewflow:hidden;
+		text-align:right;
+		padding-top:30px;
+		width:30%;
+	}
+	.rateArea{
+		color:orange;
+		font-weight:500;
+		font-size:20px;
+		padding-bottom:50px;
+	}
+	.seeMore{
+		padding-top:50px;
+	}
+	.seeMore a{
+		font-size:18px;
+		font-weight:500;
+		text-decoration:none;
+		color:gray;
+	}
+	.seeMore a:hover{
+		color:lightgray;
+	}
+	.reviewImgArea{
+		width:30px;
+		height:30px;
+	}
+	.reviewImgArea img{
+		width:30px;
+		height:30px;
+	}
+	.reviewTextArea{
+		font-weight:300;
+		color:gray;
+	}
+	.adrsArea{
+		color:gray;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

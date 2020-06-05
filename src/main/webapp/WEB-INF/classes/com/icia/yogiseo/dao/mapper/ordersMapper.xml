@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="Orders"> 
+ 	<insert id="ordersPay" parameterType="orders">
+ 		INSERT INTO ORDERS VALUES(TO_CHAR(SYSDATE,'YYYYMMDD-HH24MISS'),#{mid},#{sid},#{storename},#{menunum},#{menuname},
+ 			#{menuprice}, #{camount},#{ototalprice},SYSDATE,#{ostatus},#{opayway},#{oaddress},#{omessage},#{otime})
+ 	</insert>
+ 	
+ 	<select id="storeOnumList" parameterType="String" resultType="String">
+ 		SELECT DISTINCT ONUM FROM ORDERS WHERE SID=#{sid} ORDER BY ONUM DESC
+ 	</select>
+ 	
+ 	<select id="storeOrdersList" parameterType="String" resultType="orders">
+ 		SELECT * FROM ORDERS WHERE ONUM = #{onum} ORDER BY ONUM DESC
+ 	</select>
+ 	
+ 	<select id="checkFirstOrder" parameterType="String" resultType="orders">
+ 		SELECT * FROM ORDERS WHERE MID=#{mid}
+ 	</select>
+ 	
+ 	<select id="ordersCount" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM ORDERS WHERE MID = #{mid}
+	</select>
+ 	
+ 	<select id="getOnum" parameterType="String" resultType="String">
+ 		SELECT MAX(ONUM) FROM ORDERS WHERE MID=#{mid}
+ 	</select>
+ 	
+ 	<select id="getAddress" parameterType="String" resultType="String">
+ 		SELECT DISTINCT(OADDRESS) FROM ORDERS WHERE ONUM=#{onum} 
+ 	</select>
+ 	
+ 	<select id="orderGet" parameterType="String" resultType="orders">
+ 		SELECT * FROM ORDERS WHERE ONUM = #{onum}
+ 	</select>
+ 	
+ 	<select id="myOnumList" parameterType="String" resultType="String">
+ 		SELECT DISTINCT ONUM FROM ORDERS WHERE MID=#{mid} ORDER BY ONUM DESC
+ 	</select>
+ 	
+ 	<select id="myOrdersList" parameterType="String" resultType="orders">
+ 		SELECT * FROM ORDERS WHERE ONUM = #{onum} 
+ 	</select>
+ 	
+ 	<update id="ordersConfirm" parameterType="String">
+ 		UPDATE ORDERS SET OSTATUS='조리중' WHERE ONUM = #{onum}
+ 	</update>
+ 	
+ 	<update id="ordersCancel" parameterType="String">
+ 		UPDATE ORDERS SET OSTATUS='주문취소' WHERE ONUM = #{onum}
+ 	</update>
+ 	
+ 	<select id="getMaxMenutime" parameterType="String" resultType="int">
+ 		SELECT MAX(MENUTIME) FROM ORDERS JOIN MENU USING(MENUNUM) WHERE ONUM = #{onum}
+ 	</select>
+ 	
+ 	<update id="updateOrdersStatus" parameterType="orders">
+ 		UPDATE ORDERS SET OSTATUS=#{ostatus} WHERE ONUM =#{onum}
+ 	</update>
+ 	
+ 	<select id="getOrders" parameterType="String" resultType="orders">
+ 		SELECT * FROM ORDERS WHERE ONUM = #{onum}
+ 	</select>
+ </mapper>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

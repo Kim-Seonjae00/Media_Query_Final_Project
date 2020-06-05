@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="Voucher"> 
+ 	<insert id="voucherAdd" parameterType="voucher">
+		INSERT INTO VOUCHER(VNUM, STORENAME, SID, VNAME, VPRICE, VDATE, VIMG)
+		VALUES(#{vnum}, #{storename}, #{sid}, #{vname}, #{vprice}, #{vdate}, #{vimg})
+	</insert>
+	
+	<select id="adminVoucherList" resultType="voucher">
+		SELECT * FROM VOUCHER
+	</select>
+	
+	<select id="voucherList" resultType="voucher">
+		SELECT DISTINCT VNAME, VIMG, STORENAME, VPRICE FROM VOUCHER
+	</select>
+	
+	<delete id="voucherDelete" parameterType="String">
+		DELETE FROM VOUCHER WHERE VNUM=#{vnum}
+	</delete>
+	
+	<select id="voucherView" parameterType="String" resultType="voucher">
+		SELECT DISTINCT VNAME, VIMG, VPRICE, STORENAME, VDATE FROM VOUCHER WHERE VNAME=#{vname} 
+	</select>
+	
+	<select id="voucherSelect" parameterType="String" resultType="String">
+		SELECT MAX(VNUM) FROM VOUCHER WHERE VNAME=#{vname}
+	</select>
+
+	<insert id="voucherBuy" parameterType="voucherBuy">
+		INSERT INTO VOUCHERBUY VALUES(#{vnum}, #{mid}, #{storename}, #{vname}, #{vprice}, TO_DATE(#{vdate},'YYYY-MM-DD hh24:mi:ss'))
+	</insert>
+	
+	<select id="myVoucherList" parameterType="String" resultType="voucherBuy">
+		SELECT * FROM VOUCHERBUY WHERE MID = #{mid}
+	</select>
+	
+	<select id="myVoucherView" parameterType="String" resultType="voucherBuy">
+		SELECT * FROM VOUCHERBUY WHERE VNUM = #{vnum}
+	</select>
+ </mapper>

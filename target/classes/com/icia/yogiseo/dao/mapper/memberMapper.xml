@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="Member"> 
+	<insert id="memberJoin" parameterType="member">
+		INSERT INTO MEMBER VALUES
+			(#{mid}, '', '', #{mpassword}, #{mname}, #{memail}, #{mphone}, #{mnickname}, 0, 'BRONZE', 0, #{mimg}, 0)
+	</insert>
+	
+	<insert id="naverMemberJoin" parameterType="member">
+		INSERT INTO MEMBER VALUES
+			(#{mid}, #{naverid}, '', '1234', #{mname}, #{memail}, #{mphone}, #{mnickname}, 0, 'BRONZE', 0, #{mimg}, 0)
+	</insert>
+	
+	<insert id="kakaoMemberJoin" parameterType="member">
+		INSERT INTO MEMBER VALUES
+			(#{mid}, '', #{kakaoid}, '1234', #{mname}, #{memail}, #{mphone}, #{mnickname}, 0, 'BRONZE', 0, #{mimg}, 0)
+	</insert>
+	
+	<select id="idOverlap" parameterType="String" resultType="String">
+		SELECT MID FROM MEMBER WHERE MID = #{mid}
+	</select>
+	
+	<select id="insertKey" parameterType="String">
+		INSERT INTO EMAILKEY(EKEY) VALUES(#{key}) 
+	</select>
+	
+	<select id="checkKey" parameterType="String" resultType="String">
+		SELECT EKEY FROM EMAILKEY WHERE EKEY = #{key}
+	</select>
+	
+	<select id="memberLogin" parameterType="member" resultType="String">
+		SELECT MID FROM MEMBER WHERE MID = #{mid} AND MPASSWORD = #{mpassword}
+	</select>
+	
+	<select id="naverLogin" parameterType="String" resultType="member">
+		SELECT * FROM MEMBER WHERE NAVERID = #{naverId}
+	</select>
+	
+	<select id="kakaoLogin" parameterType="String" resultType="member">
+		SELECT * FROM MEMBER WHERE KAKAOID = #{kakaoId}
+	</select>
+	
+	<insert id="addressAdd" parameterType="address">
+		INSERT INTO ADDRESS VALUES
+			(ADDRESS_SEQ.NEXTVAL, #{mid}, #{apostcode}, #{adrs1}, #{adrs2}, #{adrs3}, #{adrs4}, 1)
+	</insert>
+	
+	<insert id="preferenceAdd" parameterType="foodpreference">
+		INSERT INTO FOODPREFERENCE VALUES
+			(FOODPREFERENCE_SEQ.NEXTVAL, #{mid}, #{taste1}, #{taste2}, #{taste3})
+	</insert>
+	
+	<select id="memberView" parameterType="String" resultType="member">
+		SELECT * FROM MEMBER WHERE MID = #{mid} 
+	</select>
+	
+	<select id="memberProfile" parameterType="String" resultType="member">
+		SELECT * FROM MEMBER WHERE MID = #{loginId} 
+	</select>
+	
+	<update id="memberModifyProcess" parameterType="member">
+		UPDATE MEMBER SET MPASSWORD = #{mpassword}, MPHONE = #{mphone}, MNICKNAME = #{mnickname}, 
+			MEMAIL = #{memail}, MIMG = #{mimg} WHERE MID = #{mid}
+	</update>
+	
+	<select id="passwordCheck" parameterType="member" resultType="String">
+		SELECT MID FROM MEMBER WHERE MID = #{mid} AND MPASSWORD = #{mpassword} 
+	</select>
+	
+	<delete id="memberDelete" parameterType="String">
+		DELETE FROM MEMBER WHERE MID = #{mid}
+	</delete>
+	
+	<insert id="couponAdd" parameterType="String">
+		INSERT INTO COUPON VALUES
+			(COUPON_SEQ.NEXTVAL, #{mid}, '회원가입 할인쿠폰', 5000, SYSDATE, SYSDATE+30)
+	</insert>
+	
+	<select id="couponList" parameterType="String" resultType="coupon">
+		SELECT * FROM COUPON WHERE MID = #{mid}
+	</select>
+	
+	<select id="couponCount" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM COUPON WHERE MID = #{mid} 
+	</select>
+	
+	<insert id="firstCouponAdd" parameterType="String">
+		INSERT INTO COUPON VALUES
+			(COUPON_SEQ.NEXTVAL, #{mid}, '첫 주문 할인쿠폰', 5000, SYSDATE, SYSDATE+30)
+	</insert>
+	
+	<delete id="couponDelete" parameterType="int">
+		DELETE FROM COUPON WHERE COUPONNUM=#{couponnum}
+	</delete>
+	
+	<update id="minusMpoint" parameterType="member">
+		UPDATE MEMBER SET MPOINT = MPOINT-#{mpoint} WHERE MID=#{mid} 
+	</update>
+	
+	<update id="plusMpoint" parameterType="member">
+		UPDATE MEMBER SET MPOINT = MPOINT+#{mpoint} WHERE MID=#{mid} 
+	</update>
+	
+	<update id="updateMtotalprice" parameterType="member">
+		UPDATE MEMBER SET MTOTALPRICE = MTOTALPRICE+#{mtotalprice} WHERE MID=#{mid}
+	</update>
+	
+	<update id="updateMgrade" parameterType="member">
+		UPDATE MEMBER SET MGRADE = #{mgrade} WHERE MID=#{mid}
+	</update>
+	
+	<select id="memberList" resultType="member">
+ 		SELECT * FROM MEMBER
+ 	</select>
+
+ 	
+ 	<select id="myProfile" resultType="member" parameterType="String">
+ 		SELECT * FROM MEMBER WHERE MID=#{loginId}
+ 	</select>
+ 	
+ 	
+ 	<select id="memberBlackList" resultType="memberBlackList">
+ 		SELECT * FROM MEMBERBLACKLIST
+ 	</select>
+ 	
+ 	<delete id="memberBlackListDelete" parameterType="String">
+ 		DELETE FROM MEMBERBLACKLIST WHERE MID=#{mid}
+ 	</delete>
+ 	
+ 	<update id="memberBlackListModify" parameterType="String">
+ 		UPDATE MEMBER SET MBLOCK=0 WHERE MID=#{mid}
+ 	</update>
+ 	
+ 	<update id="memberBlackListUpdate" parameterType="String">
+ 		UPDATE MEMBER SET MBLOCK=1 WHERE MID=#{mid}
+ 	</update>
+ 	
+ 	<insert id="memberBlackListAdd" parameterType="String">
+ 		INSERT INTO MEMBERBLACKLIST VALUES(MEMBERBLACKLIST_SEQ.NEXTVAL, #{mid}, SYSDATE)
+ 	</insert>
+ 	
+ 	<select id="memberAddress" parameterType="String" resultType="address">
+ 		SELECT * FROM ADDRESS WHERE MID=#{mid} AND AFLAG=1
+ 	</select>
+ 	
+ 	<select id="memberNameList" parameterType="String" resultType="sender">
+		SELECT MID AS SENDERID, MNICKNAME AS SENDERNAME, MIMG AS SENDERIMG FROM MEMBER WHERE MID = #{senderid}
+	</select>
+ 	
+ 	<select id="checkGoogleId" parameterType="member" resultType="String">
+		SELECT MID FROM MEMBER WHERE MID=#{mid} AND MEMAIL=#{memail}
+	</select>
+ </mapper>

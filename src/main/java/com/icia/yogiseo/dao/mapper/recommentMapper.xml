@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="Recomment"> 
+	<insert id="reviewComment" parameterType="recomment">
+		INSERT INTO RECOMMENT VALUES(RECOMMENT_SEQ.NEXTVAL,#{sid},#{rnum},#{rccontents},SYSDATE)
+	</insert>
+	
+	<select id="recommentGet" parameterType="int" resultType="recomment">
+		SELECT * FROM RECOMMENT WHERE RNUM=#{rnum}
+	</select> 
+ </mapper>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

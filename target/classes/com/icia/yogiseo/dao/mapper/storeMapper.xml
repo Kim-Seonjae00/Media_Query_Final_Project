@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="Store"> 
+ 	<select id="adminStoreList" resultType="store">
+ 		SELECT * FROM STORE
+ 	</select>
+ 	
+ 	<select id="adminStoreView" parameterType="String" resultType="store">
+ 		SELECT * FROM STORE WHERE SID=#{sid}
+ 	</select>
+ 	
+ 	<delete id="storeDelete" parameterType="String">
+ 		DELETE FROM STORE WHERE SID=#{sid}
+ 	</delete>
+ 	
+ 	<select id="storeBlackList" resultType="storeBlackList">
+ 		SELECT * FROM STOREBLACKLIST
+ 	</select>
+ 	
+ 	<delete id="storeBlackListDelete" parameterType="String">
+ 		DELETE FROM STOREBLACKLIST WHERE SID=#{sid}
+ 	</delete>
+ 	
+ 	<update id="storeBlackListModify" parameterType="String">
+ 		UPDATE STORE SET SBLOCK=0 WHERE SID=#{sid}
+ 	</update>
+ 	
+ 	<update id="storeBlackListUpdate" parameterType="String">
+ 		UPDATE STORE SET SBLOCK=1 WHERE SID=#{sid}
+ 	</update>
+ 	
+ 	<insert id="storeBlackListAdd" parameterType="String">
+ 		INSERT INTO STOREBLACKLIST VALUES(STOREBLACKLIST_SEQ.NEXTVAL, #{sid}, SYSDATE)
+ 	</insert>
+ 	
+ 	<select id="storeAddList" resultType="store">
+ 		SELECT * FROM STORE WHERE RUNNING=1
+ 	</select>
+ 	
+ 	<update id="storeAddConfirm" parameterType="String">
+ 		UPDATE STORE SET RUNNING=2 WHERE SID=#{sid}
+ 	</update>
+ 	
+ 	<update id="storeAddReject" parameterType="String">
+ 		UPDATE STORE SET RUNNING=0 WHERE SID=#{sid}
+ 	</update>
+ 
+ 
+	<select id="searchBy" resultType="store" parameterType="search">
+		SELECT * FROM ${listname} WHERE RN BETWEEN #{startRow} AND #{endRow} AND RUNNING = 2
+	</select>
+	
+	<select id="storeCount" resultType="int" parameterType="search">
+		SELECT COUNT(*) FROM STORE WHERE SCATEGORY = #{scategory}
+	</select>
+	
+	<select id="storeView" resultType="store" parameterType="String">
+		SELECT * FROM STORE WHERE SID =#{sid}
+	</select>
+	
+	<insert id="storeJoin" parameterType="store">
+ 		INSERT INTO STORE VALUES (#{sid}, #{spassword}, #{sname}, #{snumber}, #{storename}, #{sphone}, 
+ 			#{spostcode}, #{sadrs1}, #{sadrs2}, #{sadrs3}, #{sadrs4}, #{simg}, #{scategory}, 0, 0, 0,'')
+ 	</insert>
+ 	
+ 	<select id="idOverlap" parameterType="String" resultType="String">
+		SELECT SID FROM STORE WHERE SID = #{sid}
+	</select>
+	
+	<select id="storeLogin" parameterType="store" resultType="String">
+		SELECT SID FROM STORE WHERE SID = #{sid} AND SPASSWORD = #{spassword}
+	</select>
+	
+	<select id="menuList" parameterType="String" resultType="menu">
+		SELECT * FROM MENU WHERE SID = #{sid}
+	</select>
+	
+	<insert id="menuAdd" parameterType="menu">
+		INSERT INTO MENU VALUES (MENU_SEQ.NEXTVAL,#{sid},#{menuname},#{menuprice},#{menudesc},#{menutime},
+			#{menuimg},#{mcategory1},#{mcategory2},#{mcategory3},0)
+	</insert>
+	
+	<delete id="menuDelete" parameterType="int">
+		DELETE FROM MENU WHERE MENUNUM = #{menunum}
+	</delete>
+	
+	<select id="menuView" parameterType="int" resultType="menu">
+		SELECT * FROM MENU WHERE MENUNUM = #{menunum}
+	</select>
+	
+	<update id="menuModify" parameterType="menu">
+		UPDATE MENU SET MENUNAME=#{menuname},MENUPRICE=#{menuprice},MENUDESC=#{menudesc},MENUTIME=#{menutime},
+			MENUIMG=#{menuimg},MCATEGORY1=#{mcategory1},MCATEGORY2=#{mcategory2},MCATEGORY3=#{mcategory3} WHERE MENUNUM=#{menunum}
+	</update>
+	
+	<select id="reviewList" parameterType="String" resultType="review">
+		SELECT * FROM REVIEWLIST WHERE RN BETWEEN 1 AND 5 AND SID=#{sid}
+	</select>
+	
+	<select id="storeConfirm">
+		UPDATE STORE SET RUNNING=1 WHERE SID=#{sid}
+	</select>
+	
+	<update id="storeModify" parameterType="store">
+		UPDATE STORE SET SPASSWORD=#{spassword}, SNAME=#{sname}, SNUMBER=#{snumber}, STORENAME=#{storename}, SPHONE=#{sphone},
+			SPOSTCODE=#{spostcode}, SADRS1=#{sadrs1}, SADRS2=#{sadrs2}, SADRS3=#{sadrs3}, SADRS4=#{sadrs4},SIMG=#{simg},SCATEGORY=#{scategory} 
+				WHERE SID = #{sid}
+	</update>
+	
+	<select id="storeCheck" parameterType="hashMap" resultType="int">
+		SELECT COUNT(*) FROM STORE WHERE SID=#{sid} AND SPASSWORD=#{passwordcheck}
+	</select>
+
+	<select id="sidList" parameterType="String" resultType="String">
+ 		SELECT DISTINCT SID FROM MENU WHERE MENUNAME LIKE #{searchWord}
+ 	</select>
+ 	
+ 	<select id="searchStoreList" parameterType="String" resultType="store">
+ 		SELECT * FROM STORE WHERE SID=#{sid}
+ 	</select>
+ 	
+ 	<update id="updateStoreSales" parameterType="store">
+ 		UPDATE STORE SET SALES = SALES+#{sales} WHERE SID = #{sid}
+ 	</update>
+	
+	<update id="updateMenuHit" parameterType="menu">
+		UPDATE MENU SET MENUHIT = MENUHIT+#{menuhit} WHERE MENUNUM = #{menunum}
+	</update>
+	
+ 	<update id="getMatCategory" parameterType="store">
+ 		UPDATE STORE SET MATCATEGORY=#{matcategory} WHERE SID=#{sid}
+ 	</update>
+ 	
+ 	<select id="storeNameList" parameterType="String" resultType="sender">
+		SELECT SID AS SENDERID, STORENAME AS SENDERNAME, SIMG AS SENDERIMG FROM STORE WHERE SID = #{senderid}
+	</select>
+
+	<select id="storeCount1" parameterType="String" resultType="int">
+    	SELECT COUNT(*) FROM STORE WHERE SID = #{sid}
+	</select>
+</mapper>
+

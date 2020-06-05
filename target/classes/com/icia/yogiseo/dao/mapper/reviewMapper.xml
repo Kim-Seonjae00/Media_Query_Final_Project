@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="Review"> 
+ 
+ 	<select id="reportReviewList" resultType="review">
+ 		SELECT * FROM REVIEW WHERE RREPORT>=3
+ 	</select>
+ 	
+ 	<delete id="adminReviewDelete" parameterType="int">
+ 		DELETE FROM REVIEW WHERE RNUM=#{rnum}
+ 	</delete>
+ 	
+ 	<select id="memberReviewList" parameterType="String" resultType="review">
+ 		SELECT * FROM REVIEW WHERE MID=#{mid}
+ 	</select>
+ 	
+ 	<select id="storeRrate" parameterType="String" resultType="double">
+ 		SELECT ROUND(AVG(RRATE),1) FROM REVIEW WHERE SID=#{sid}
+ 	</select>
+ 	
+	<select id="reviewRecommentList" resultType="reviewJoinRecomment" parameterType="int">
+		SELECT * FROM REVIEW JOIN RECOMMENT USING(RNUM,SID) WHERE RNUM=#{rnum}
+	</select>
+	
+	<insert id="reviewWrite" parameterType="review">
+		INSERT INTO REVIEW VALUES(REVIEW_SEQ.NEXTVAL,#{mid},#{sid},#{onum},#{rcontents},#{rimg},#{rrate},sysdate,0,0)
+	</insert>
+	
+	<select id="reviewCount" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM REVIEW WHERE SID=#{sid}
+	</select>
+	
+	<select id="reviewRate" parameterType="String" resultType="float">
+		SELECT AVG(RRATE) FROM REVIEW WHERE SID=#{sid}
+	</select>
+	
+	<insert id="firstReviewWrite" parameterType="String">
+		INSERT INTO REVIEW VALUES(REVIEW_SEQ.NEXTVAL,'TEST',#{sid},0,'첫번째 리뷰를 남겨주세요♥','',5,sysdate,0,0)
+	</insert>
+	
+	<select id="myReviewList" parameterType="String" resultType="review">
+		SELECT * FROM REVIEW WHERE MID = #{mid} ORDER BY RNUM DESC
+	</select>
+	
+	<select id="storeReviewList" parameterType="String" resultType="review">
+		SELECT * FROM REVIEW WHERE SID = #{sid}
+	</select>
+	
+	<select id="recommentRnumList" parameterType="String" resultType="int">
+		SELECT RNUM FROM RECOMMENT
+	</select>
+	
+	<delete id="reviewDelete" parameterType="int">
+		DELETE FROM REVIEW WHERE RNUM=#{rnum}
+	</delete>
+	
+	<select id="rnumList" parameterType="search" resultType="int">
+		SELECT RNUM FROM REVIEWLIST WHERE RN BETWEEN #{startRow} AND #{endRow} AND SID = #{sid}
+	</select>
+	
+	<select id="reviewList" parameterType="int" resultType="review">
+		SELECT * FROM REVIEW WHERE RNUM = #{rnum}
+	</select>
+	
+	<insert id="reviewRecommend" parameterType="reviewRecommend">
+		INSERT INTO REVIEWRECOMMEND VALUES(#{rnum},#{mid})
+	</insert>
+	
+	<update id="plusRhit" parameterType="reviewRecommend">
+		UPDATE REVIEW SET RHIT = RHIT+1 WHERE RNUM = #{rnum}
+	</update>
+	
+	<delete id="recommendCancel" parameterType="reviewRecommend">
+		DELETE FROM REVIEWRECOMMEND WHERE MID=#{mid} AND RNUM = #{rnum}
+	</delete>
+	
+	<update id="minusRhit" parameterType="reviewRecommend">
+		UPDATE REVIEW SET RHIT = RHIT-1 WHERE RNUM = #{rnum}
+	</update>
+	
+	<select id="recommendMidList" parameterType="int" resultType="String">
+		SELECT MID FROM REVIEWRECOMMEND WHERE RNUM = #{rnum}
+	</select>
+	
+	<select id="containReport" parameterType="reviewReport" resultType="int">
+		SELECT COUNT(*) FROM REVIEWREPORT WHERE MID=#{mid} AND RNUM=#{rnum}
+	</select>
+	
+	<insert id="reviewReport" parameterType="reviewReport">
+		INSERT INTO REVIEWREPORT VALUES(#{rnum},#{mid})
+	</insert>
+	
+	<update id="plusRreport" parameterType="reviewReport">
+		UPDATE REVIEW SET RREPORT = RREPORT+1 WHERE RNUM = #{rnum}
+	</update>
+ </mapper>

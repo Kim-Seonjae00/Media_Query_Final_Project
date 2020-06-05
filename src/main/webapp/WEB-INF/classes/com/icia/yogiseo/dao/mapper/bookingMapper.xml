@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="Booking"> 
+ 
+ 	<insert id="booking" parameterType="booking">
+		INSERT INTO BOOKING VALUES
+			(BOOKING_SEQ.NEXTVAL, #{storename}, #{sid}, #{mid}, #{bname}, #{bdate}, #{btime}, #{bpeople}, 0)
+	</insert>
+	
+ 	<select id="myBookingList" parameterType="String" resultType="booking">
+		SELECT * FROM BOOKING WHERE MID = #{mid} ORDER BY BNUM DESC
+	</select>
+ 	
+ 	<delete id="bookingCancel" parameterType="int">
+ 		DELETE FROM BOOKING WHERE BNUM = #{bnum}
+ 	</delete>
+ 	
+ 	<select id="bookingView" parameterType="int" resultType="booking">
+ 		SELECT * FROM BOOKING WHERE BNUM = #{bnum}
+ 	</select>
+ 	
+ 	<update id="bookingModify" parameterType="booking">
+ 		UPDATE BOOKING SET BNAME = #{bname}, BDATE = #{bdate}, BTIME = #{btime}, BPEOPLE = #{bpeople}, BCONFIRM = 0 WHERE BNUM = #{bnum}
+ 	</update>
+ 	
+ 	<select id="storeBookingList" parameterType="String" resultType="booking">
+ 		SELECT * FROM BOOKING WHERE SID=#{sid} ORDER BY BNUM DESC
+ 	</select>
+ 	
+ 	<update id="bookingConfirm" parameterType="booking">
+ 		UPDATE BOOKING SET BCONFIRM = #{bconfirm} WHERE BNUM = #{bnum}
+ 	</update>
+ 	
+ </mapper>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

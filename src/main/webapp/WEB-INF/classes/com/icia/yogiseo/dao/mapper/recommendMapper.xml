@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="Recommend"> 
+ 
+ 	<select id="searchTaste1" parameterType="String" resultType="recommendResult">
+ 		SELECT S.*, M.MENUNAME FROM STORE S, MENU M WHERE S.SID = M.SID AND MCATEGORY1=#{taste1} AND MCATEGORY2=#{taste2}
+ 	</select>
+ 	
+ 	<select id="searchTaste2" parameterType="String" resultType="recommendResult">
+ 		SELECT S.*, M.MENUNAME FROM STORE S, MENU M WHERE S.SID = M.SID AND MCATEGORY2=#{taste2} AND MCATEGORY3=#{taste3}
+ 	</select>
+ 	
+ 	<select id="searchTaste3" parameterType="String" resultType="recommendResult">
+ 		SELECT S.*, M.MENUNAME FROM STORE S, MENU M WHERE S.SID = M.SID AND MCATEGORY3=#{taste3} AND MCATEGORY1=#{taste1}
+ 	</select>
+ 
+ 	<select id="searchTaste4" parameterType="String" resultType="recommendResult">
+ 		SELECT S.*, M.MENUNAME FROM STORE S, MENU M WHERE S.SID = M.SID AND MCATEGORY1=#{taste1} AND MCATEGORY2=#{taste2} AND MCATEGORY3=#{taste3}
+ 	</select>
+ 	
+ 	<select id="honeyCombo" parameterType="String" resultType="String">
+ 		SELECT DISTINCT HMENU FROM HONEYCOMBO WHERE HMAINMENU LIKE #{hmainmenu}
+ 	</select>
+ 	
+ 	<select id="orderList" resultType="orders">
+ 		SELECT * FROM ORDERS
+ 	</select>
+ 	
+ 	<select id="mainList" resultType="String">
+ 		SELECT DISTINCT HMAINMENU FROM HONEYCOMBO
+ 	</select>
+ 	
+ 	<select id="recommendStoreList" parameterType="store" resultType="store">
+ 		SELECT * FROM STORE WHERE MATCATEGORY=#{matcategory}
+ 	</select>
+ 	
+ 	<select id="storeNameList" resultType="String">
+ 		SELECT DISTINCT SID FROM VOUCHER 
+ 	</select>
+ 	
+ 	<select id="voucherStoreList" parameterType="String" resultType="store">
+ 		SELECT * FROM STORE WHERE SID=#{sid}
+ 	</select>
+ 	
+ 	<select id="getRrate" parameterType="String" resultType="double">
+ 		SELECT AVG(RRATE) FROM REVIEW WHERE SID=#{sid}
+ 	</select>	
+ 	
+ 	<select id="rateList" resultType="rate">
+ 		SELECT SID, AVG(RRATE) AS RATE FROM REVIEW GROUP BY SID ORDER BY AVG(RRATE) DESC
+ 	</select>
+ 	
+ 	<select id="sList" resultType="store">
+ 		SELECT * FROM STORE
+ 	</select>
+ 	
+ 	<select id="getReview" parameterType="String" resultType="review">
+ 		SELECT * FROM REVIEW WHERE SID=#{sid} AND RHIT=(SELECT DISTINCT MAX(RHIT) FROM REVIEW WHERE SID=#{sid})
+ 	</select>
+ 	
+ 	<select id="getMimg" parameterType="String" resultType="String">
+ 		SELECT MIMG FROM MEMBER WHERE MID=#{mid}
+ 	</select>
+ 	
+ 	<select id="ordersCount" parameterType="honeyCombo" resultType="int">
+ 		SELECT COUNT(*) FROM HONEYCOMBO WHERE HMAINMENU LIKE #{hmainmenu} AND HMENU LIKE #{hmenu}
+ 	</select>
+ 	
+ </mapper>

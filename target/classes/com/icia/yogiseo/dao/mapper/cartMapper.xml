@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="Cart"> 
+	<insert id="cartAdd" parameterType="cart">
+		INSERT INTO CART VALUES(CART_SEQ.NEXTVAL, #{mid}, #{sid}, #{storename}, #{menunum},
+			#{menuname}, #{menuprice}, #{camount})
+	</insert>
+	
+	<select id="cartList" parameterType="String" resultType="cart">
+		SELECT * FROM CART WHERE MID = #{mid}
+	</select>
+	
+	<select id="cartCheck" parameterType="cart" resultType="int">
+		SELECT COUNT(*) FROM CART WHERE SID != #{sid} AND MID = #{mid}
+	</select>
+	
+	<delete id="cartDelete" parameterType="int">
+		DELETE FROM CART WHERE CNUM = #{cnum}
+	</delete>
+	
+	<select id="menuCheck" parameterType="cart" resultType="cart">
+		SELECT * FROM CART WHERE MENUNUM = #{menunum} AND MID=#{mid}
+	</select>
+	
+	<update id="cartUpdate" parameterType="cart">
+		UPDATE CART SET CAMOUNT = CAMOUNT+#{camount} WHERE CNUM=#{cnum}
+	</update>
+
+	<select id="cartGet" parameterType="int" resultType="cart">
+		SELECT * FROM CART WHERE CNUM=#{cnum}
+	</select>
+	
+	<update id="updateCamount" parameterType="cart">
+		UPDATE CART SET CAMOUNT=#{camount} WHERE CNUM=#{cnum}
+	</update>
+ </mapper>

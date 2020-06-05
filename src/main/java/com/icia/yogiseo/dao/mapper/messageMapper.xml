@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="Message">
+ 
+ <select id="msenderList" parameterType="String" resultType="String">
+ 		SELECT MSENDER FROM MESSAGE WHERE MRECEIVER = #{loginId} ORDER BY MNUM DESC
+ 	</select>
+ 	
+ 	<select id="messageList" parameterType="message" resultType="message">
+ 		SELECT * FROM MESSAGE 
+ 			WHERE MSENDER = #{msender} AND MRECEIVER = #{mreceiver} OR MSENDER = #{mreceiver} AND MRECEIVER = #{msender} ORDER BY MNUM DESC
+ 	</select>
+ 	
+ 	<insert id="addMessage" parameterType="message">
+ 		INSERT INTO MESSAGE VALUES(MESSAGE_SEQ.NEXTVAL, #{msender}, #{mreceiver}, #{mcontents}, 0, SYSDATE)
+ 	</insert>
+ 	
+ 	<select id="malertCount" parameterType="String" resultType="int">
+ 		SELECT COUNT(*) FROM MESSAGE WHERE MSENDER = #{msender} AND MALERT = 0
+ 	</select>
+ 	
+ 	<update id="alertUpdate" parameterType="String">
+ 		UPDATE MESSAGE SET MALERT = 1 WHERE MSENDER = #{mreceiver}
+ 	</update>
+ 	
+ 	<select id="getRecently" parameterType="String" resultType="message">
+ 		SELECT * FROM MESSAGE WHERE MNUM 
+ 			= (SELECT MAX(MNUM) FROM MESSAGE WHERE MRECEIVER = #{mreceiver} AND MSENDER = #{msender} OR MRECEIVER = #{msender} AND MSENDER = #{mreceiver})
+ 	</select>
+ 	
+ 	<insert id="sendOrdersPay" parameterType="message">
+ 		INSERT INTO MESSAGE VALUES(MESSAGE_SEQ.NEXTVAL,#{msender}, #{mreceiver}, #{mcontents}, 0, SYSDATE)
+ 	</insert>
+ 	
+ 	<select id="messageCount" parameterType="String" resultType="int">
+ 		SELECT COUNT(*) FROM MESSAGE WHERE MRECEIVER = #{mreceiver} AND MALERT = 0
+ 	</select>
+ </mapper>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

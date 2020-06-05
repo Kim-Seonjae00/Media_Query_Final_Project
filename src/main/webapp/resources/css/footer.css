@@ -1,0 +1,49 @@
+.footer{
+  width: 100%;
+  background-color: rgb(95, 0, 128);
+  clear: both;
+  height:300px;
+  margin-bottom:0px;
+}
+
+.bottomnav{
+	width: 100%;
+	padding: 10px;
+	border-top: 0.5px solid #ccc;
+	border-bottom: 0.5px solid #ccc;
+	background-color: white;
+}
+.store{
+	width: 960px;
+	margin: auto;
+	text-align: left;
+}
+.store a{
+	color: gray;
+	font-size:15px;
+	font-weight: 300;
+	padding: 20px;
+}
+
+
+.social{
+  width: 960px;
+  margin: auto;
+  padding: 60px;
+  padding-bottom:0px;
+}
+.social a{
+  text-align: center;
+  padding: 15px;
+  transition: all 0.3s ease;
+  color: white;
+  font-size: 20px;
+ }
+ .social a:hover{
+  color: #ccc;
+}
+.social p{
+  font-size: 12px;
+  text-align: center;
+  color: #ccc;
+}
