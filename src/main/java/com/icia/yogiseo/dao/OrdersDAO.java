@@ -19,11 +19,12 @@ public class OrdersDAO {
 	}
 
 
+	//ordersMap의 Key값인 onum을 가져옴
 	public List<String> storeOnumList(String sid) {
 		return sql.selectList("Orders.storeOnumList", sid);
 	}
 
-
+	//ordersMap의 Value값이 List<OrdersDTO>를 가져옴
 	public List<OrdersDTO> storeOrdersList(String onum) {
 		return sql.selectList("Orders.storeOrdersList", onum);
 	}
@@ -71,6 +72,7 @@ public class OrdersDAO {
 	}
 
 
+	//주문 취소
 	public void ordersCancel(String onum) {
 		sql.update("Orders.ordersCancel",onum);
 	}

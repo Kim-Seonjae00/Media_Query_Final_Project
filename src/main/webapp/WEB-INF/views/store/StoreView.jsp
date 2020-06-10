@@ -80,7 +80,7 @@
 			    					output+="<img src='resources/img/review/"+result[i].rimg+"'>";
 			    				}
 			    				output+="<div class='rcontent'>"+result[i].rcontents+"</div>";
-			    				if(result[i].rcnum != 0){
+			    				if(result[i].recommend){
 			    					output+="<span style='font-weight:300'>&nbsp;&nbsp;&nbsp;사장님 답글 : "+result[i].rccontents+"</span>";
 			    				}else{
 			    					output+="<div style='width:100%; height:27px;'></div>";
@@ -186,7 +186,7 @@
 		    				}
 		    				output+="<div class='rcontent'>"+result[i].rcontents+"</div>";
 		    				
-		    				if(result[i].rcnum != 0){
+		    				if(result[i].recommend){
 		    					output+="<span style='font-weight:300'>&nbsp;&nbsp;&nbsp;ㄴ사장님 : "+result[i].rccontents+"</span>";
 		    				}else{
 		    					output+="<div style='width:100%; height:27px;'></div>";
@@ -240,7 +240,7 @@
 				function(result){
 					if(result == "success"){
 						alert("장바구니에 추가되었습니다.");
-					}else if(result=="overlap"){
+					}else if(result=="other"){
 						alert("장바구니에는 하나의 가게메뉴만 담을 수 있습니다.");
 					}else{
 						alert("장바구니 추가에 실패하였습니다.");

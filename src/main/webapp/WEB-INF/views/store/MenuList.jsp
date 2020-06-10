@@ -29,6 +29,9 @@
 	padding-top:20px;
 	border-top:1px solid lightgray;
 }
+#menuList tr td button{
+	margin:0px;
+}
 </style>
 <script>
 function goMenuAddForm(){
@@ -126,7 +129,7 @@ function menuMod(menu){
 		          			yAxes: [{
 	        					ticks: {
 	        						min: 0,
-	        						max:10,
+	        						max:20,
 	        						fontSize : 14,
 	        					}
 	        				}]

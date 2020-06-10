@@ -22,7 +22,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 		function joinFn(){
 			location.href = "memberjoinform";
 		}
-		function onSignIn(googleUser) {
+		/* function onSignIn(googleUser) {
 		  var profile = googleUser.getBasicProfile();
 		  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
 		  console.log('Name: ' + profile.getName());
@@ -51,7 +51,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 				 console.log("통신 실패");
 			 }
 		  }); 
-		}
+		} */
 		
 	</script>
 	<style>
@@ -120,7 +120,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 					<a href="kakaologin">
 						<img src="${pageContext.request.contextPath}/resources/img/login/kakao_account_login_btn_medium_narrow.png" id="kakaoLogin">
 					</a><br>
-					<button class="g-signin2" data-onsuccess="onSignIn" style="border: none;"></button>
+					<!--<button class="g-signin2" data-onsuccess="onSignIn" style="border: none;"></button>-->
         	</div>
     </div>
     

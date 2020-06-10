@@ -18,11 +18,13 @@ import com.icia.yogiseo.dto.StoreDTO;
 public class StoreDAO {
 	@Autowired
 	SqlSessionTemplate sql;
-
+	
+	//음식점 검색
 	public List<StoreDTO> searchBy(SearchDTO search) {
 		return sql.selectList("Store.searchBy", search);
 	}
-
+	
+	//음식점 상세
 	public StoreDTO storeView(String sid) {
 		return sql.selectOne("Store.storeView", sid);
 	}
@@ -39,6 +41,7 @@ public class StoreDAO {
 		return sql.selectOne("Store.storeLogin", store);
 	}
 
+	//업체 음식점 메뉴 조회
 	public List<MenuDTO> menuList(String sid) {
 		return sql.selectList("Store.menuList", sid);
 	}
@@ -51,6 +54,7 @@ public class StoreDAO {
 		return sql.delete("Store.menuDelete",menunum);
 	}
 
+	//메뉴 상세정보
 	public MenuDTO menuView(int menunum) {
 		return sql.selectOne("Store.menuView", menunum);
 	}
@@ -59,14 +63,17 @@ public class StoreDAO {
 		return sql.update("Store.menuModify", menu);
 	}
 
+	//업체 아이디로 REVIEW테이블 조회
 	public List<ReviewDTO> reviewList(String sid) {
 		return sql.selectList("Store.reviewList", sid);
 	}
 
+	//업체 음식점 신청
 	public int storeConfirm(String sid) {
 		return sql.update("Store.storeConfirm",sid);
 	}
 
+	//업체정보 수정 처리
 	public int storeModify(StoreDTO store) {
 		return sql.update("Store.storeModify", store);
 	}
@@ -142,6 +149,7 @@ public class StoreDAO {
 		return sql.selectOne("Store.searchStoreList", sid);
 	}
 
+	//업체 총 매출액 업데이트
 	public void updateStoreSales(StoreDTO store) {
 		sql.update("Store.updateStoreSales", store);
 	}	
@@ -150,6 +158,7 @@ public class StoreDAO {
 		return sql.selectOne("Store.storeNameList", senderid);
 	}
 
+	//메뉴 주문 수 업데이트
 	public void updateMenuHit(MenuDTO menu) {
 		sql.update("Store.updateMenuHit", menu);
 	}

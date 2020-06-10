@@ -43,6 +43,7 @@ public class MessageDAO {
 		return sql.selectOne("Message.messageCount", mreceiver);
 	}
 	
+	//주문 시 메시지 전송
 	public void sendOrdersPay(MessageDTO message) {
 		sql.insert("Message.sendOrdersPay", message);
 	}

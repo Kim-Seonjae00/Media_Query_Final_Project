@@ -131,6 +131,7 @@ public class MemberDAO {
 		return sql.insert("Member.couponAdd", mid);
 	}
 
+	//가지고 있는 쿠폰 가져오기
 	public List<CouponDTO> couponList(String mid) {
 		return sql.selectList("Member.couponList", mid);
 	}
@@ -141,28 +142,34 @@ public class MemberDAO {
 
 	public void firstCouponAdd(String mid) {
 		sql.insert("Member.firstCouponAdd", mid);
-		System.out.println(1234);
 	}
 
+	//쿠폰 사용
 	public void couponDelete(int couponnum) {
 		sql.delete("Member.couponDelete", couponnum);
 	}
 
+	//포인트 사용
 	public void minusMpoint(MemberDTO member) {
 		sql.update("Member.minusMpoint",member);
 	}
 
+	//포인트 적립
 	public void plusMpoint(MemberDTO member) {
 		sql.update("Member.plusMpoint",member);
 	}
-
+	
+	//회원 총 구매액 업데이트
 	public void updateMtotalprice(MemberDTO member) {
 		sql.update("Member.updateMtotalprice", member);
 	}
-
+	
+	//회원 등급 업데이트
 	public void updateMgrade(MemberDTO member) {
 		sql.update("Member.updateMgrade", member);
 	}
+	
+	
 	//메시지 보낸 member리스트
 	public SenderDTO memberNameList(String senderid) {
 		return sql.selectOne("Member.memberNameList", senderid);

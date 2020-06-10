@@ -262,8 +262,9 @@ public class NoticeService {
 		
 		NoticeDTO notice = noticeDAO.adminNoticeView(nnum);
 		
-		Path source = Paths.get("C:\\\\Users\\10\\Desktop\\develporent\\souce\\servlet\\YogiseoYogi\\src\\main\\webapp\\resources\\img\\notice\\"+notice.getNfile());
+		Path source = Paths.get("C:\\Users\\4\\Desktop\\YogiseoYogi\\src\\main\\webapp\\resources\\img\\notice\\"+notice.getNfile());
 	    String mimeType = Files.probeContentType(source);
+	    System.out.println(mimeType);
 	    if(mimeType.contains("image")) {
 	    	notice.setNfiletype("이미지");
 	    } else {

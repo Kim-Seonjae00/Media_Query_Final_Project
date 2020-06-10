@@ -4,6 +4,7 @@
  
  <mapper namespace="Booking"> 
  
+ 	<!-- 예약 신청 처리 -->
  	<insert id="booking" parameterType="booking">
 		INSERT INTO BOOKING VALUES
 			(BOOKING_SEQ.NEXTVAL, #{storename}, #{sid}, #{mid}, #{bname}, #{bdate}, #{btime}, #{bpeople}, 0)
@@ -25,6 +26,7 @@
  		UPDATE BOOKING SET BNAME = #{bname}, BDATE = #{bdate}, BTIME = #{btime}, BPEOPLE = #{bpeople}, BCONFIRM = 0 WHERE BNUM = #{bnum}
  	</update>
  	
+ 	<!-- 업체아이디로 BOOKING테이블 조회 -->
  	<select id="storeBookingList" parameterType="String" resultType="booking">
  		SELECT * FROM BOOKING WHERE SID=#{sid} ORDER BY BNUM DESC
  	</select>

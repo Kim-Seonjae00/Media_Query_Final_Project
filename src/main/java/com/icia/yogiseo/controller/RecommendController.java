@@ -34,7 +34,9 @@ public class RecommendController {
 	
 	// 꿀조합  데이터 요청
 	@RequestMapping(value="honeycombo")
-	public ModelAndView honeyCombo(@RequestParam("hmainmenu") String hmainmenu,@RequestParam("onum") String onum,@RequestParam("sid") String sid) {
+	public ModelAndView honeyCombo(@RequestParam("hmainmenu") String hmainmenu,@RequestParam("onum") 
+		String onum,@RequestParam("sid") String sid) {
+		
 		mav = recommendService.honeyCombo(hmainmenu,onum,sid);
 		return mav;
 	}

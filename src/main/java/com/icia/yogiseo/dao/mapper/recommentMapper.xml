@@ -3,10 +3,13 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
  <mapper namespace="Recomment"> 
+ 
+ 	<!-- 리뷰답글 처리 -->
 	<insert id="reviewComment" parameterType="recomment">
 		INSERT INTO RECOMMENT VALUES(RECOMMENT_SEQ.NEXTVAL,#{sid},#{rnum},#{rccontents},SYSDATE)
 	</insert>
 	
+	<!-- 리뷰번호로 RECOMMENT테이블 조회 -->
 	<select id="recommentGet" parameterType="int" resultType="recomment">
 		SELECT * FROM RECOMMENT WHERE RNUM=#{rnum}
 	</select> 

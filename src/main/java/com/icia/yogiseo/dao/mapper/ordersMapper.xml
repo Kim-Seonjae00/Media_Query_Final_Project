@@ -8,10 +8,12 @@
  			#{menuprice}, #{camount},#{ototalprice},SYSDATE,#{ostatus},#{opayway},#{oaddress},#{omessage},#{otime})
  	</insert>
  	
+ 	<!-- ordersMap의 Key값 -->
  	<select id="storeOnumList" parameterType="String" resultType="String">
  		SELECT DISTINCT ONUM FROM ORDERS WHERE SID=#{sid} ORDER BY ONUM DESC
  	</select>
  	
+ 	<!-- ordersMap의 Value값 -->
  	<select id="storeOrdersList" parameterType="String" resultType="orders">
  		SELECT * FROM ORDERS WHERE ONUM = #{onum} ORDER BY ONUM DESC
  	</select>
@@ -40,6 +42,7 @@
  		SELECT DISTINCT ONUM FROM ORDERS WHERE MID=#{mid} ORDER BY ONUM DESC
  	</select>
  	
+ 	
  	<select id="myOrdersList" parameterType="String" resultType="orders">
  		SELECT * FROM ORDERS WHERE ONUM = #{onum} 
  	</select>
@@ -48,6 +51,7 @@
  		UPDATE ORDERS SET OSTATUS='조리중' WHERE ONUM = #{onum}
  	</update>
  	
+ 	<!-- 주문 취소 -->
  	<update id="ordersCancel" parameterType="String">
  		UPDATE ORDERS SET OSTATUS='주문취소' WHERE ONUM = #{onum}
  	</update>

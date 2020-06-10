@@ -14,6 +14,7 @@ public class AddressDAO {
 	@Autowired
 	private SqlSessionTemplate sql;
 	
+	//주소 정보 가져오기
 	public List<AddressDTO> myAddressList(String mid) {
 		return sql.selectList("Address.myAddressList", mid);
 	}

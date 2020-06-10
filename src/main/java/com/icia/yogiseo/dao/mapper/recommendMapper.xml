@@ -20,6 +20,7 @@
  		SELECT S.*, M.MENUNAME FROM STORE S, MENU M WHERE S.SID = M.SID AND MCATEGORY1=#{taste1} AND MCATEGORY2=#{taste2} AND MCATEGORY3=#{taste3}
  	</select>
  	
+ 	<!-- 꿀조합 메뉴 리스트 -->
  	<select id="honeyCombo" parameterType="String" resultType="String">
  		SELECT DISTINCT HMENU FROM HONEYCOMBO WHERE HMAINMENU LIKE #{hmainmenu}
  	</select>
@@ -64,6 +65,8 @@
  		SELECT MIMG FROM MEMBER WHERE MID=#{mid}
  	</select>
  	
+ 	
+ 	<!-- 같은 꿀조합으로 주문한 사람 수 -->
  	<select id="ordersCount" parameterType="honeyCombo" resultType="int">
  		SELECT COUNT(*) FROM HONEYCOMBO WHERE HMAINMENU LIKE #{hmainmenu} AND HMENU LIKE #{hmenu}
  	</select>

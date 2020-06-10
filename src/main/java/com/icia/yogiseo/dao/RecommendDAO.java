@@ -41,6 +41,7 @@ public class RecommendDAO {
 		return sql.selectList("Recommend.searchTaste4", taste);
 	}
 
+	//메인메뉴와 일치하는 메뉴 리스트
 	public List<String> honeyCombo(String hmainmenu) {
 		return sql.selectList("Recommend.honeyCombo", hmainmenu);
 	}
@@ -89,6 +90,7 @@ public class RecommendDAO {
 		return sql.selectOne("Recommend.getMimg", mid);
 	}
 
+	//같은 꿀조합으로 주문한 사람 수
 	public int ordersCount(HoneyComboDTO honey) {
 		return sql.selectOne("Recommend.ordersCount", honey);
 	}

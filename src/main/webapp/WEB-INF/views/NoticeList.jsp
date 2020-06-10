@@ -28,45 +28,48 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 		location.href="adminnoticeview?nnum="+nnum+"&loginId='${sessionScope.loginId}'";
 	}
 	
+	$(document).ready(function(){
 	var page = parseInt('${paging.page}');
-	$(window).scroll(function() {
-		if ($(window).scrollTop() == $(document).height() - $(window).height()) {
-			page = page+1;
-			
-			$.ajax ({
-				type:"post",
-				url:"noticelistajax",
-				data:{"page":page},
-				dataType:"json",
-				success:
-					function(result){
-					var output=$("#profilebox").html();
-
-					for(var i in result){
-						if(i%2==0){
-		    				output+="<tr>";
-		    				output+="<td class='shortbox'>"+result[i].nnum+"</td>";
-		    				output+="<td class='longboxtd'><a href='noticeview?nnum="+result[i].nnum+"'>"+result[i].ntitle+"</a></td>";
-		    				output+="<td class='shortbox'>"+result[i].ndate+"</td>";
-		    				output+="</tr>";
-							
-						}else{
-							output+="<tr>";
-		    				output+="<td class='shortbox'>"+result[i].nnum+"</td>";
-		    				output+="<td class='longboxtd'><a href='noticeview?nnum="+result[i].nnum+"'>"+result[i].ntitle+"</a></td>";
-		    				output+="<td class='shortbox'>"+result[i].ndate+"</td>";
-		    				output+="</tr>";
+	console.log(page);
+		$(window).scroll(function() {
+			if (parseInt($(window).scrollTop()) == $(document).height() - $(window).height()) {
+				page = page+1;
+				$.ajax ({
+					type:"post",
+					url:"noticelistajax",
+					data:{"page":page},
+					dataType:"json",
+					success:
+						function(result){
+						console.log("통신 성공!!!!");
+						var output=$("#profilebox").html();
+	
+						for(var i in result){
+							if(i%2==0){
+			    				output+="<tr>";
+			    				output+="<td class='shortbox'>"+result[i].nnum+"</td>";
+			    				output+="<td class='longboxtd'><a href='noticeview?nnum="+result[i].nnum+"'>"+result[i].ntitle+"</a></td>";
+			    				output+="<td class='shortbox'>"+result[i].ndate+"</td>";
+			    				output+="</tr>";
+								
+							}else{
+								output+="<tr>";
+			    				output+="<td class='shortbox'>"+result[i].nnum+"</td>";
+			    				output+="<td class='longboxtd'><a href='noticeview?nnum="+result[i].nnum+"'>"+result[i].ntitle+"</a></td>";
+			    				output+="<td class='shortbox'>"+result[i].ndate+"</td>";
+			    				output+="</tr>";
+							}
+								
 						}
-							
+						$("#profilebox").html(output);
+					},
+					error:
+						function(){
+							console.log("통신실패!");
 					}
-					$("#profilebox").html(output);
-				},
-				error:
-					function(){
-						console.log("통신실패!");
-				}
-			});
-		}
+				});
+			}
+		});
 	});
 </script>
 <style>

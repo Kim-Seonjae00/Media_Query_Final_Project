@@ -61,7 +61,7 @@ public class BookingService {
 	public ModelAndView booking(BookingDTO booking) {
 		mav = new ModelAndView();
 		
-		int bookingResult = bookingDAO.booking(booking);
+		int bookingResult = bookingDAO.booking(booking); //BOOKING테이블에 정보 저장
 		StoreDTO store = storeDAO.storeView(booking.getSid());
 		
 		if(bookingResult > 0) {

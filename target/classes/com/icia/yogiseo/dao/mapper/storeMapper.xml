@@ -47,15 +47,16 @@
  		UPDATE STORE SET RUNNING=0 WHERE SID=#{sid}
  	</update>
  
- 
+ 	<!-- 음식점 검색 -->
 	<select id="searchBy" resultType="store" parameterType="search">
-		SELECT * FROM ${listname} WHERE RN BETWEEN #{startRow} AND #{endRow} AND RUNNING = 2
+		SELECT * FROM ${listname} WHERE RN BETWEEN #{startRow} AND #{endRow} AND RUNNING = 2<!-- 'RUNNING = 2'는 현재 운영중인 업체를 의미 -->
 	</select>
 	
 	<select id="storeCount" resultType="int" parameterType="search">
 		SELECT COUNT(*) FROM STORE WHERE SCATEGORY = #{scategory}
 	</select>
 	
+	<!-- 업체 상세 -->
 	<select id="storeView" resultType="store" parameterType="String">
 		SELECT * FROM STORE WHERE SID =#{sid}
 	</select>
@@ -73,6 +74,7 @@
 		SELECT SID FROM STORE WHERE SID = #{sid} AND SPASSWORD = #{spassword}
 	</select>
 	
+	<!-- 업체 아이디로 음식점 메뉴 조회 -->
 	<select id="menuList" parameterType="String" resultType="menu">
 		SELECT * FROM MENU WHERE SID = #{sid}
 	</select>
@@ -86,6 +88,7 @@
 		DELETE FROM MENU WHERE MENUNUM = #{menunum}
 	</delete>
 	
+	<!-- 메뉴 상세정보 -->
 	<select id="menuView" parameterType="int" resultType="menu">
 		SELECT * FROM MENU WHERE MENUNUM = #{menunum}
 	</select>
@@ -99,14 +102,17 @@
 		SELECT * FROM REVIEWLIST WHERE RN BETWEEN 1 AND 5 AND SID=#{sid}
 	</select>
 	
+	<!-- 업체 음식점 신청 -->
 	<select id="storeConfirm">
 		UPDATE STORE SET RUNNING=1 WHERE SID=#{sid}
 	</select>
 	
+	<!-- 업체정보 수정 -->
 	<update id="storeModify" parameterType="store">
 		UPDATE STORE SET SPASSWORD=#{spassword}, SNAME=#{sname}, SNUMBER=#{snumber}, STORENAME=#{storename}, SPHONE=#{sphone},
-			SPOSTCODE=#{spostcode}, SADRS1=#{sadrs1}, SADRS2=#{sadrs2}, SADRS3=#{sadrs3}, SADRS4=#{sadrs4},SIMG=#{simg},SCATEGORY=#{scategory} 
-				WHERE SID = #{sid}
+			SPOSTCODE=#{spostcode}, SADRS1=#{sadrs1}, SADRS2=#{sadrs2},
+				SADRS3=#{sadrs3}, SADRS4=#{sadrs4},SIMG=#{simg},SCATEGORY=#{scategory} 
+					WHERE SID = #{sid}
 	</update>
 	
 	<select id="storeCheck" parameterType="hashMap" resultType="int">
@@ -121,10 +127,12 @@
  		SELECT * FROM STORE WHERE SID=#{sid}
  	</select>
  	
+ 	<!-- 업체 총 매출액 업데이트 -->
  	<update id="updateStoreSales" parameterType="store">
  		UPDATE STORE SET SALES = SALES+#{sales} WHERE SID = #{sid}
  	</update>
 	
+	<!-- 메뉴 총 주문 수 업데이트 -->
 	<update id="updateMenuHit" parameterType="menu">
 		UPDATE MENU SET MENUHIT = MENUHIT+#{menuhit} WHERE MENUNUM = #{menunum}
 	</update>

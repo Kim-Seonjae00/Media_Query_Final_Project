@@ -30,6 +30,7 @@
  			= (SELECT MAX(MNUM) FROM MESSAGE WHERE MRECEIVER = #{mreceiver} AND MSENDER = #{msender} OR MRECEIVER = #{msender} AND MSENDER = #{mreceiver})
  	</select>
  	
+ 	<!-- 주문 시 메시지 전송 -->
  	<insert id="sendOrdersPay" parameterType="message">
  		INSERT INTO MESSAGE VALUES(MESSAGE_SEQ.NEXTVAL,#{msender}, #{mreceiver}, #{mcontents}, 0, SYSDATE)
  	</insert>

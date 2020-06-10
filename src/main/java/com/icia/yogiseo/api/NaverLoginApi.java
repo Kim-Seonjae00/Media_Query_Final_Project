@@ -28,7 +28,6 @@ public class NaverLoginApi {
 
 
 		String state = generateRandomString();
-		System.out.println("state:"+state);
 		setSession(session, state);
 		
 		OAuth20Service oauthService = new ServiceBuilder().apiKey(CLIENT_ID).apiSecret(CLIENT_SECRET)

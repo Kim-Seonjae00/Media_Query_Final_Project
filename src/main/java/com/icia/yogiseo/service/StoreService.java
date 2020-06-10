@@ -64,11 +64,11 @@ public class StoreService {
 		int startRow = (page - 1) * PAGE_LIMIT + 1;
 		int endRow = page * PAGE_LIMIT;
 
-		search.setStartRow(startRow);
+		search.setStartRow(startRow); //페이징 처리를 위한 설정
 		search.setEndRow(endRow);
 
-		switch(search.getScategory()) {
-		case "한식" : search.setListname("KOREANLIST"); break;
+		switch(search.getScategory()) { //검색할 대상이 될 VIEW선정
+		case "한식" : search.setListname("KOREANLIST"); break; 
 		case "분식" : search.setListname("STREETLIST"); break;
 		case "중식" : search.setListname("CHINALIST"); break;
 		case "아시안/양식" : search.setListname("ASIANLIST"); break;
@@ -127,11 +127,11 @@ public class StoreService {
 	//음식점 상세조회
 	public ModelAndView storeView(StoreDTO store) {
 		mav = new ModelAndView();
-		String sid = store.getSid();
+		String sid = store.getSid(); //업체 검색을 위한 업체 아이디 추출
 		List<MenuDTO> menuList = storeDAO.menuList(sid);
-		StoreDTO store1 = storeDAO.storeView(sid);
-		int reviewCount = reviewDAO.reviewCount(sid);
-		float reviewRate = reviewDAO.reviewRate(sid);
+		StoreDTO store1 = storeDAO.storeView(sid); //업체 정보 저장
+		int reviewCount = reviewDAO.reviewCount(sid); //리뷰 페이징 처리를 위한 갯수 저장
+		float reviewRate = reviewDAO.reviewRate(sid); //리뷰 평점 평균 저장
 
 		mav.addObject("menuList", menuList);
 		mav.addObject("store", store1);
@@ -200,14 +200,14 @@ public class StoreService {
 
 	//업체 마이페이지 이동
 	public ModelAndView storePage(String sid) {
-		mav = storeProfile(sid);
+		mav = storeProfile(sid); //업체 마이페이지의 프로필 설정
 
-		List<String> onumList = ordersDAO.storeOnumList(sid);
+		List<String> onumList = ordersDAO.storeOnumList(sid); //업체 마이페이지의 첫 화면은 주문리스트
 		Map<String, List<OrdersDTO>> ordersMap = new HashMap<String, List<OrdersDTO>>();
 		for(int i=0;i<onumList.size();i++) {
 			List<OrdersDTO> ordersList = ordersDAO.storeOrdersList(onumList.get(i));
 			if(onumList.get(i).equals(ordersList.get(0).getOnum())) {
-				ordersMap.put(onumList.get(i), ordersList);
+				ordersMap.put(onumList.get(i), ordersList);//주문 번호에 따라 List<OrdersDTO>를 Map에저장
 			}
 		}
 
@@ -219,9 +219,9 @@ public class StoreService {
 
 	//업체 메뉴 리스트 조회
 	public ModelAndView storeMenuList(String sid) {
-		mav = storeProfile(sid);
+		mav = storeProfile(sid); //업체 마이페이지의 프로필 설정
 
-		List<MenuDTO> menuList = storeDAO.menuList(sid);
+		List<MenuDTO> menuList = storeDAO.menuList(sid); //업체 아이디로 MENU테이블 조회
 
 		mav.addObject("menuList", menuList);
 		mav.setViewName("store/MenuList");
@@ -279,8 +279,9 @@ public class StoreService {
 		MultipartFile menuimgFile = menu.getMenuimgfile();
 		String menuimg = menuimgFile.getOriginalFilename();
 
-		String savePath = "C:\\Users\\4\\Desktop\\Development\\Source\\servlet\\YogiseoYogi\\src\\main\\webapp\\resources\\img\\menuImage\\"
-				+ menuimg;
+		String savePath = "C:\\Users\\4\\Desktop\\Development\\Source\\servlet\\"
+								+ "YogiseoYogi\\src\\main\\webapp\\resources\\img\\menuImage\\"
+									+ menuimg;
 
 		if (!menuimg.isEmpty()) {
 			menuimgFile.transferTo(new File(savePath));
@@ -300,22 +301,22 @@ public class StoreService {
 	public ModelAndView storeReviewList(String sid) {
 		mav = storeProfile(sid);
 
-		List<ReviewDTO> reviewList = storeDAO.reviewList(sid);
+		List<ReviewDTO> reviewList = storeDAO.reviewList(sid);//업체 아이디로 REVIEW테이블 조회
 		List<RecommentDTO> recommentList = new ArrayList<RecommentDTO>();
 		for(int i=0;i<reviewList.size();i++) {
-			RecommentDTO recomment = recommentDAO.recommentGet(reviewList.get(i).getRnum());
+			RecommentDTO recomment = recommentDAO.recommentGet(reviewList.get(i).getRnum());//리뷰에 답글이 있는지 판별
 			if(recomment != null) {
-				recommentList.add(recomment);
+				recommentList.add(recomment);//답글이 있으면 recommentList에 추가
 			}
 		}
 
 		Map<Integer,RecommentDTO> recommentMap = new HashMap<Integer,RecommentDTO>(); 
 		for(int i=0;i<recommentList.size();i++) {
-			recommentMap.put(recommentList.get(i).getRnum(),recommentList.get(i));
+			recommentMap.put(recommentList.get(i).getRnum(),recommentList.get(i));//리뷰번호를 key값, RecommentDTO를 Value값으로 저장
 		}
 
 		mav.addObject("recommentMap", recommentMap);
-		mav.addObject("reviewList", reviewList);
+		mav.addObject("reviewList", reviewList);	
 		mav.setViewName("store/StoreReviewList");
 		return mav;
 	}
@@ -331,7 +332,6 @@ public class StoreService {
 	//음식점 등록신청
 	public ModelAndView storeConfirm(String sid) {
 		mav = storeProfile(sid);
-
 
 		int confirmResult = storeDAO.storeConfirm(sid);
 		if(confirmResult == 1) {
@@ -584,12 +584,14 @@ public class StoreService {
 	public ModelAndView storeBookingList(String sid) {
 		mav = storeProfile(sid);
 
-		List<BookingDTO>  bookingList = bookingDAO.storeBookingList(sid);
+		List<BookingDTO>  bookingList = bookingDAO.storeBookingList(sid);//업체 아이디로 BOOKING테이블 조회
 
 		mav.addObject("bookingList", bookingList);
 		mav.setViewName("store/StoreBookingList");
 		return mav;
 	}
+	
+	
 	// 관리자 맛집 카테고리 수정
 	public ModelAndView getMatCategory(StoreDTO store) {
 		mav = new ModelAndView();

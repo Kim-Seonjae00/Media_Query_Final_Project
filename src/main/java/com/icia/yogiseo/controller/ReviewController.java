@@ -44,16 +44,16 @@ public class ReviewController {
 		}
 		
 		//리뷰작성
-		@RequestMapping(value = "/reviewwrite")
+		@RequestMapping(value = "/reviewwrite") //클라이언트에서 요청한 데이터를 ReviewDTO타입의 review에 담는다.
 		public ModelAndView reviewWrite(@ModelAttribute ReviewDTO review) throws IllegalStateException, IOException {
 			mav = new ModelAndView();
-			mav = reviewService.reviewWrite(review);
+			mav = reviewService.reviewWrite(review); //reviewWrite메소드에 review리턴
 
 			return mav;
 		}
 
-		// 가게 리뷰 리스트 출력
-		@RequestMapping(value="/reviewlist")
+		//리뷰 리스트 출력
+		@RequestMapping(value="/reviewlist") 
 		public @ResponseBody List<ReviewJoinRecommentDTO> reviewList(@ModelAttribute SearchDTO search,@RequestParam("sid") String sid){
 			List<ReviewJoinRecommentDTO> reviewList = reviewService.reviewList(search, sid);
 			
@@ -84,7 +84,8 @@ public class ReviewController {
 			return reviewCommentResult;
 		}
 		
-		@RequestMapping(value="/reviewrecommend")
+		//리뷰추천
+		@RequestMapping(value="/reviewrecommend")//리뷰번호와 회원아이디를 ReveiwRecommendDTO에 저장
 		public @ResponseBody String reviewRecommend(@ModelAttribute ReviewRecommendDTO reviewRecommend) {
 			String recommendResult = reviewService.reviewRecommend(reviewRecommend);
 			
@@ -98,10 +99,12 @@ public class ReviewController {
 			return cancelResult;
 		}
 		
+		//리뷰신고
 		@RequestMapping(value="/reviewreport")
 		public @ResponseBody String reviewReport(@ModelAttribute ReviewReportDTO reviewReport) {
 			String cancelResult = reviewService.reviewReport(reviewReport);
 			
 			return cancelResult;
 		}
+		
 }

@@ -92,7 +92,7 @@ public class StoreController {
 	}
 
 	// 업체 마이페이지 출력
-	@RequestMapping(value = "storepage")
+	@RequestMapping(value = "/storepage")
 	public ModelAndView storePage(@RequestParam("sid") String sid) {
 		mav = storeService.storePage(sid);
 

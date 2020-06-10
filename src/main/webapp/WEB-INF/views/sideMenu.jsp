@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://kit.fontawesome.com/c4acfea8a6.js" crossorigin="anonymous"></script>
 <script>
 $(document).ready(function(){
 	var currentPosition = parseInt($("#sideMenu").css("top"));

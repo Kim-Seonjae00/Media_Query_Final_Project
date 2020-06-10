@@ -24,14 +24,17 @@
 		SELECT * FROM REVIEW JOIN RECOMMENT USING(RNUM,SID) WHERE RNUM=#{rnum}
 	</select>
 	
+	<!-- 리뷰 작성처리 -->
 	<insert id="reviewWrite" parameterType="review">
 		INSERT INTO REVIEW VALUES(REVIEW_SEQ.NEXTVAL,#{mid},#{sid},#{onum},#{rcontents},#{rimg},#{rrate},sysdate,0,0)
 	</insert>
 	
+	<!-- 업체 리뷰 갯수 -->
 	<select id="reviewCount" parameterType="String" resultType="int">
 		SELECT COUNT(*) FROM REVIEW WHERE SID=#{sid}
 	</select>
 	
+	<!-- 업체 리뷰 평균 -->
 	<select id="reviewRate" parameterType="String" resultType="float">
 		SELECT AVG(RRATE) FROM REVIEW WHERE SID=#{sid}
 	</select>
@@ -48,6 +51,7 @@
 		SELECT * FROM REVIEW WHERE SID = #{sid}
 	</select>
 	
+	<!-- 답글이 있는 리뷰 리스트 출력 -->
 	<select id="recommentRnumList" parameterType="String" resultType="int">
 		SELECT RNUM FROM RECOMMENT
 	</select>
@@ -56,18 +60,22 @@
 		DELETE FROM REVIEW WHERE RNUM=#{rnum}
 	</delete>
 	
+	<!-- 페이징 처리를 위한 리뷰 리스트 출력 -->
 	<select id="rnumList" parameterType="search" resultType="int">
 		SELECT RNUM FROM REVIEWLIST WHERE RN BETWEEN #{startRow} AND #{endRow} AND SID = #{sid}
 	</select>
 	
+	<!-- 리뷰 리스트 출력 -->
 	<select id="reviewList" parameterType="int" resultType="review">
 		SELECT * FROM REVIEW WHERE RNUM = #{rnum}
 	</select>
 	
+	<!-- 리뷰 추천 -->
 	<insert id="reviewRecommend" parameterType="reviewRecommend">
 		INSERT INTO REVIEWRECOMMEND VALUES(#{rnum},#{mid})
 	</insert>
 	
+	<!-- 리뷰 추천 수 업데이트 -->
 	<update id="plusRhit" parameterType="reviewRecommend">
 		UPDATE REVIEW SET RHIT = RHIT+1 WHERE RNUM = #{rnum}
 	</update>
@@ -80,19 +88,25 @@
 		UPDATE REVIEW SET RHIT = RHIT-1 WHERE RNUM = #{rnum}
 	</update>
 	
+	<!--  -->
 	<select id="recommendMidList" parameterType="int" resultType="String">
 		SELECT MID FROM REVIEWRECOMMEND WHERE RNUM = #{rnum}
 	</select>
 	
+	
+	<!-- 리뷰 신고 여부 확인 -->
 	<select id="containReport" parameterType="reviewReport" resultType="int">
 		SELECT COUNT(*) FROM REVIEWREPORT WHERE MID=#{mid} AND RNUM=#{rnum}
 	</select>
 	
+	<!-- 신고한 아이디와 리뷰번호 저장 -->
 	<insert id="reviewReport" parameterType="reviewReport">
 		INSERT INTO REVIEWREPORT VALUES(#{rnum},#{mid})
 	</insert>
 	
+	<!-- 리뷰의 신고 수 증가 -->
 	<update id="plusRreport" parameterType="reviewReport">
 		UPDATE REVIEW SET RREPORT = RREPORT+1 WHERE RNUM = #{rnum}
 	</update>
+	
  </mapper>

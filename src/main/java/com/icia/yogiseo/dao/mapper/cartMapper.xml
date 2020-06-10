@@ -3,34 +3,42 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
  <mapper namespace="Cart"> 
+ 
+ 	<!-- 장바구니 담기 -->
 	<insert id="cartAdd" parameterType="cart">
 		INSERT INTO CART VALUES(CART_SEQ.NEXTVAL, #{mid}, #{sid}, #{storename}, #{menunum},
 			#{menuname}, #{menuprice}, #{camount})
 	</insert>
 	
+	<!-- 장바구니 정보 가져오기 -->
 	<select id="cartList" parameterType="String" resultType="cart">
 		SELECT * FROM CART WHERE MID = #{mid}
 	</select>
 	
+	<!-- 다른 업체가 있는지 확인 -->
 	<select id="cartCheck" parameterType="cart" resultType="int">
 		SELECT COUNT(*) FROM CART WHERE SID != #{sid} AND MID = #{mid}
 	</select>
 	
+	<!-- 장바구니 삭제 -->
 	<delete id="cartDelete" parameterType="int">
 		DELETE FROM CART WHERE CNUM = #{cnum}
 	</delete>
 	
+	<!-- 같은 메뉴가 있는지 확인 -->
 	<select id="menuCheck" parameterType="cart" resultType="cart">
 		SELECT * FROM CART WHERE MENUNUM = #{menunum} AND MID=#{mid}
 	</select>
 	
+	<!-- 같은 메뉴일 시 수량 증가 -->
 	<update id="cartUpdate" parameterType="cart">
 		UPDATE CART SET CAMOUNT = CAMOUNT+#{camount} WHERE CNUM=#{cnum}
 	</update>
 
+	<!-- 장바구니 정보 가져오기 -->
 	<select id="cartGet" parameterType="int" resultType="cart">
 		SELECT * FROM CART WHERE CNUM=#{cnum}
-	</select>
+	</select>	
 	
 	<update id="updateCamount" parameterType="cart">
 		UPDATE CART SET CAMOUNT=#{camount} WHERE CNUM=#{cnum}

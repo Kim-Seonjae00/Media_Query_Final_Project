@@ -14,6 +14,7 @@ public class BookingDAO {
 	@Autowired
 	private SqlSessionTemplate sql;
 	
+	//예약 신청 처리
 	public int booking(BookingDTO booking) {
 		return sql.insert("Booking.booking", booking);
 	}
@@ -34,6 +35,7 @@ public class BookingDAO {
 		return sql.update("Booking.bookingModify", booking);
 	}
 
+	//업체 아이디 BOOKING테이블 조회
 	public List<BookingDTO> storeBookingList(String sid) {
 		return sql.selectList("Booking.storeBookingList", sid);
 	}

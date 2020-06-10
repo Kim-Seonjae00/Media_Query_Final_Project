@@ -44,15 +44,18 @@ public class ReviewDAO {
 	public ReviewJoinRecommentDTO reviewRecommentList(int rnum) {
 		return sql.selectOne("Review.reviewRecommentList", rnum);
 	}
-
+	
+	//리뷰 작성처리
 	public int reviewWrite(ReviewDTO review) {
 		return sql.insert("Review.reviewWrite", review);
 	}
-
+	
+	//리뷰 갯수
 	public int reviewCount(String sid) {
 		return sql.selectOne("Review.reviewCount", sid);
 	}
-
+	
+	//업체 평점 평균 점수
 	public float reviewRate(String sid) {
 		return sql.selectOne("Review.reviewRate",sid);
 	}
@@ -72,23 +75,28 @@ public class ReviewDAO {
 	public int reviewDelete(int rnum) {
 		return sql.delete("Review.reviewDelete", rnum);
 	}
-
+	
+	//페이징 처리를 위한 리뷰리스트 출력
 	public List<Integer> rnumList(SearchDTO search) {
 		return sql.selectList("Review.rnumList",search);
 	}
 
+	//답글이 있는 리뷰 리스트 출력
 	public List<Integer> recommentRnumList() {
 		return sql.selectList("Review.recommentRnumList");
 	}
 
+	//리뷰 리스트 출력
 	public ReviewDTO reviewList(int rnum) {
 		return sql.selectOne("Review.reviewList", rnum);
 	}
 
+	//리뷰 추천
 	public int reviewRecommend(ReviewRecommendDTO reviewRecommend) {
 		return sql.insert("Review.reviewRecommend", reviewRecommend);
 	}
 
+	//리뷰 추천 수 업데이트
 	public void plusRhit(ReviewRecommendDTO reviewRecommend) {
 		sql.update("Review.plusRhit", reviewRecommend);
 	}
@@ -123,4 +131,5 @@ public class ReviewDAO {
 	public void plusRreport(ReviewReportDTO reviewReport) {
 		sql.update("Review.plusRreport",reviewReport);
 	}
+	
 }

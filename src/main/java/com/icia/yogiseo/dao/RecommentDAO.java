@@ -14,10 +14,12 @@ public class RecommentDAO {
 	@Autowired
 	SqlSessionTemplate sql;
 	
-	public int reviewCommnet(RecommentDTO recomment) {
+	//답글처리
+	public int reviewComment(RecommentDTO recomment) {
 		return sql.insert("Recomment.reviewComment", recomment);
 	}
 
+	//리뷰번호로 RECOMMENT테이블 조회
 	public RecommentDTO recommentGet(int rnum) {
 		return sql.selectOne("Recomment.recommentGet", rnum);
 	}

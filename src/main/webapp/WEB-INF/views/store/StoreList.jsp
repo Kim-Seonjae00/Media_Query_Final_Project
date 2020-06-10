@@ -93,22 +93,6 @@ $(window).scroll(function() {
 				var output=$("#main").html();
 				for(var i in result){
 					if(i%2==0){
-						output+="<div class='storeProfile' id='storeProfileEven'>";
-						output+="<div class='storeInfo' id='storeInfoEven'>";
-	    				output+="<span class='storeName'><a href='storeview?sid="+result[i].sid+"'>"+result[i].storename+"</a></span>";
-	    				output+="<span class='storeCategory'>"+result[i].scategory+"</span><br>";
-	    				output+="<span class='storePhone'>"+result[i].sphone+"</span><br>";
-	    				output+=result[i].spostcode + result[i].sadrs1 + result[i].sadrs3+ result[i].sadrs4;
-	    				output+="</div>";
-						output+="<div id='storeProfileImg'>";
-						if(result[i].simg != null){
-							output+="<img src='resources/img/Profile/"+result[i].simg+"' id='storeImg'>";
-						}else{
-							output+="<img src='resources/img/logo/로고2.png' id='storeImg'>";
-						}
-						output+="</div>";
-						output+="</div>";
-					}else{
 						output+="<div class='storeProfile' id='storeProfileOdd'>";
 						output+="<div id='storeProfileImg'>";
 						if(result[i].simg != null){
@@ -124,7 +108,23 @@ $(window).scroll(function() {
 	    				output+=result[i].spostcode + result[i].sadrs1 + result[i].sadrs3+ result[i].sadrs4;
 	    				output+="</div>";
 						output+="</div>";
-						
+				
+					}else{
+						output+="<div class='storeProfile' id='storeProfileEven'>";
+						output+="<div class='storeInfo' id='storeInfoEven'>";
+	    				output+="<span class='storeName'><a href='storeview?sid="+result[i].sid+"'>"+result[i].storename+"</a></span>";
+	    				output+="<span class='storeCategory'>"+result[i].scategory+"</span><br>";
+	    				output+="<span class='storePhone'>"+result[i].sphone+"</span><br>";
+	    				output+=result[i].spostcode + result[i].sadrs1 + result[i].sadrs3+ result[i].sadrs4;
+	    				output+="</div>";
+						output+="<div id='storeProfileImg'>";
+						if(result[i].simg != null){
+							output+="<img src='resources/img/Profile/"+result[i].simg+"' id='storeImg'>";
+						}else{
+							output+="<img src='resources/img/logo/로고2.png' id='storeImg'>";
+						}
+						output+="</div>";
+						output+="</div>";
 					}
 				}
 				$("#main").html(output);

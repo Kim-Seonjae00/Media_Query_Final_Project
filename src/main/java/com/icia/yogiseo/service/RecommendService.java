@@ -74,7 +74,7 @@ public class RecommendService {
 	public ModelAndView honeyCombo(String hmainmenu, String onum, String sid) {
 		mav = new ModelAndView();
 		
-		List<String> honeyCombo = recommendDAO.honeyCombo(hmainmenu);
+		List<String> honeyCombo = recommendDAO.honeyCombo(hmainmenu);//메인 메뉴와 일치하는 메뉴 리스트
 		List<OrdersDTO> ordersList = ordersDAO.orderGet(onum);
 		
 		
@@ -83,7 +83,7 @@ public class RecommendService {
 			HoneyComboDTO honey = new HoneyComboDTO();
 			honey.setHmainmenu("%"+hmainmenu+"%");
 			honey.setHmenu("%"+honeyCombo.get(i)+"%");
-			int orders = recommendDAO.ordersCount(honey);
+			int orders = recommendDAO.ordersCount(honey); //같은 꿀조합으로 주문한 사람 수
 			orderCount[i] = orders;
 		}
 		

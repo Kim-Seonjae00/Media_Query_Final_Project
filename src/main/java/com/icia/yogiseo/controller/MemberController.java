@@ -190,7 +190,6 @@ public class MemberController {
 	public ModelAndView naverJoin(HttpSession session) {
 		mav = new ModelAndView();
 		String naverUrl = naverJoinApi.getAuthorizationUrl(session);
-
 		mav.addObject("naverUrl", naverUrl);
 		mav.setViewName("member/NaverLogin");
 

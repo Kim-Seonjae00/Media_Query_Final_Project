@@ -63,18 +63,18 @@ public class OrdersService {
 	//장바구니 추가
 	public String cartAdd(CartDTO cart) {
 		System.out.println(cart);
-		int cartCheck = cartDAO.cartCheck(cart);
-		CartDTO checkedCart = cartDAO.menuCheck(cart);
+		int cartCheck = cartDAO.cartCheck(cart);//다른 업체의 메뉴가 장바구니에 있는지 판별
+		CartDTO checkedCart = cartDAO.menuCheck(cart);//같은 메뉴가 장바구니에 있는지 판별
 		String cartAddResult = null;
 		
 		if(cartCheck>0) {
-			cartAddResult="overlap";
+			cartAddResult="other"; //다른 업체의 메뉴는 장바구니에 담지 못함
 		}else {
 			if(checkedCart != null) {
 				cart.setCnum(checkedCart.getCnum());
-				cartAddResult = cartDAO.cartUpdate(cart);
+				cartAddResult = cartDAO.cartUpdate(cart);//같은 메뉴를 장바구니에 담을 시 수량이 추가됨
 			}else {
-				cartAddResult = cartDAO.cartAdd(cart);
+				cartAddResult = cartDAO.cartAdd(cart); //메뉴 장바구니에 추가
 			}
 		}
 		return cartAddResult;
@@ -84,12 +84,12 @@ public class OrdersService {
 	public ModelAndView cartList(String mid) {
 		mav = memberService.memberProfile(mid);
 		
-		List<CartDTO> cartList = cartDAO.cartList(mid);
+		List<CartDTO> cartList = cartDAO.cartList(mid);//장바구니 정보 가져오기
 		HashMap<Integer, MenuDTO> menuMap = new HashMap<Integer, MenuDTO>();
 		for(int i=0;i<cartList.size();i++) {
 			int menunum = cartList.get(i).getMenunum();
-			MenuDTO menu = storeDAO.menuView(menunum);
-			menuMap.put(menunum, menu);
+			MenuDTO menu = storeDAO.menuView(menunum); //menu번호에 맞게 MenuDTO 객체 생성
+			menuMap.put(menunum, menu); //Cart번호에 따라 MenuDTO를 HashMap에 저장
 		}
 		
 		mav.addObject("menuMap", menuMap);
@@ -102,7 +102,7 @@ public class OrdersService {
 	public ModelAndView cartDelete(String mid, int cnum) {
 		mav = new ModelAndView();
 		
-		int deleteResult = cartDAO.cartDelete(cnum);
+		int deleteResult = cartDAO.cartDelete(cnum);//장바구니 삭제
 		if(deleteResult == 1) {
 			mav.setViewName("redirect:/cartlist?mid="+mid);
 		}
@@ -118,23 +118,22 @@ public class OrdersService {
 		orders = ordersList.split(" ");
 		for(int i=0;i<orders.length;i++) {
 			int cnum = Integer.parseInt(orders[i]); 
-			CartDTO cart = cartDAO.cartGet(cnum);
+			CartDTO cart = cartDAO.cartGet(cnum);//orders에 저장된 장바구니 번호로 장바구니 정보 가져오기
 			cartList.add(cart);
 		}
 		
 		HashMap<Integer, MenuDTO> menuMap = new HashMap<Integer, MenuDTO>();
 		for(int i=0;i<cartList.size();i++) {
 			int menunum = cartList.get(i).getMenunum();
-			MenuDTO menu = storeDAO.menuView(menunum);
+			MenuDTO menu = storeDAO.menuView(menunum);//메뉴 정보 가져오기
 			menuMap.put(menunum, menu);
 			if(menutime<menu.getMenutime()) {
-				menutime = menu.getMenutime();
+				menutime = menu.getMenutime();//배달예상시간 설정
 			}
 		}
 		
-		List<AddressDTO> addressList = addressDAO.myAddressList(mid);
-		List<CouponDTO> couponList = memberDAO.couponList(mid);
-		
+		List<AddressDTO> addressList = addressDAO.myAddressList(mid);//등록한 주소 정보가져오기
+		List<CouponDTO> couponList = memberDAO.couponList(mid);//회원에게 있는 쿠폰 리스트 가져오기		
 		
 		
 		StoreDTO store = storeDAO.storeView(sid);
@@ -156,8 +155,8 @@ public class OrdersService {
 		String[] cnums = cnum.split(" ");
 		String mid = null;
 		int maxTime = 0;
-		memberDAO.couponDelete(couponnum);
-		List<String> mainList = recommendDAO.mainList();		
+		memberDAO.couponDelete(couponnum);//입력된 쿠폰번호와 일치하는 쿠폰 삭제
+		List<String> mainList = recommendDAO.mainList(); //꿀조합에 들어갈 메인메뉴 리스트
 		String mainmenu = null;
 		boolean hmenucheck=true;
 		
@@ -171,18 +170,20 @@ public class OrdersService {
 			int menunum = cart.getMenunum();
 			int menuprice = cart.getMenuprice();
 			int camount = cart.getCamount();
+			
 			List<OrdersDTO> ordersList = ordersDAO.checkFirstOrder(mid);
-			if(ordersList.isEmpty()) {
+			if(ordersList.isEmpty()) { //orderList에 mid가 없다면
 				memberDAO.firstCouponAdd(mid);//첫 구매 시 쿠폰제공
 			}
+			
 			MenuDTO menu = storeDAO.menuView(menunum);
 			if(maxTime < menu.getMenutime()) {
-				maxTime = menu.getMenutime();
+				maxTime = menu.getMenutime();//배달예상시간 설정
 			}
 			
 			menu.setMenunum(menunum);
 			menu.setMenuhit(camount);
-			storeDAO.updateMenuHit(menu);
+			storeDAO.updateMenuHit(menu); //메뉴 총 주문 수 업데이트
 			
 			orders.setMid(mid);
 			orders.setSid(sid);
@@ -192,12 +193,12 @@ public class OrdersService {
 			orders.setMenuprice(menuprice);
 			orders.setCamount(camount);
 			orders.setOstatus("확인중");
-			orders.setOtime(orders.getOtime()+maxTime);
+			orders.setOtime(orders.getOtime()+maxTime); //카카오맵API로 계산한 배달시간 + 메뉴시간
 			if(i==0) {
 				StoreDTO store = new StoreDTO();
 				store.setSid(sid);
 				store.setSales(menuprice);
-				storeDAO.updateStoreSales(store);
+				storeDAO.updateStoreSales(store);//업체의 총 매출액 업데이트
 				
 				MessageDTO message = new MessageDTO();
 				String mcontents = "";
@@ -222,7 +223,7 @@ public class OrdersService {
 				
 				message.setMreceiver(mid);
 				message.setMsender(sid);
-				messageDAO.sendOrdersPay(message);
+				messageDAO.sendOrdersPay(message);//배달 성공 시 메시지 전송
 			}
 			
 			if(ordersDAO.ordersPay(orders)==1) { //결제처리
@@ -237,7 +238,7 @@ public class OrdersService {
 						hmenucheck = false;
 						break;
 					} else {
-						mainmenu = "기본";
+						mainmenu = "기본";//꿀조합이 아무것도 없을 시 '기본'으로 설정
 					}
 				}
 			}
@@ -254,19 +255,19 @@ public class OrdersService {
 		}
 		
 		member.setMpoint(minusPoint);
-		memberDAO.minusMpoint(member);
+		memberDAO.minusMpoint(member);//사용한 포인트만큼 감소
 		
 		member.setMpoint(plusPoint);
-		memberDAO.plusMpoint(member);
+		memberDAO.plusMpoint(member);//등급에 따라 포인트 지급
 		
 		member.setMtotalprice(orders.getOtotalprice());
-		memberDAO.updateMtotalprice(member);
+		memberDAO.updateMtotalprice(member);//회원의 총 구매액 업데이트
 		
 		member = memberDAO.memberView(mid);
 		int mtotalprice = member.getMtotalprice();
 		
 		String mgrade = null;
-		if(mtotalprice>700000) {
+		if(mtotalprice>700000) {//총 구매액에 따라 등급 조정
 			mgrade="VIP";
 		}else if(mtotalprice>300000) {
 			mgrade="GOLD";

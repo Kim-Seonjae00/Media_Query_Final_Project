@@ -28,47 +28,48 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 		location.href="adminnoticeview?nnum="+nnum+"&loginId=${sessionScope.loginId}";
 	}
 	
-	var page = parseInt('${paging.page}');
-	$(window).scroll(function() {
-		if ($(window).scrollTop() == $(document).height() - $(window).height()) {
-			page = page+1;
-			
-			$.ajax ({
-				type:"post",
-				url:"noticelistajax",
-				data:{"page":page},
-				dataType:"json",
-				success:
-					function(result){
-					var output=$("#profilebox").html();
-
-					for(var i in result){
-						if(i%2==0){
-		    				output+="<tr>";
-		    				output+="<td style='width:80px;'>"+result[i].nnum+"</td>";
-		    				output+="<td style='width:250px;'>"+result[i].ntitle+"</td>";
-		    				output+="<td>"+result[i].ndate+"</td>";
-		    				output+="<td><button onclick='noticedelete("+result[i].nnum+")' id='btn'>삭제</button><button onclick='adminnoticeview("+result[i].nnum+")' class='btn'>상세</button></td>";
-		    				output+="</tr>";
-							
-						}else{
-							output+="<tr>";
-		    				output+="<td style='width:80px;'>"+result[i].nnum+"</td>";
-		    				output+="<td style='width:250px;'>"+result[i].ntitle+"</td>";
-		    				output+="<td>"+result[i].ndate+"</td>";
-		    				output+="<td><button onclick='noticedelete("+result[i].nnum+")' id='btn'>삭제</button><button onclick='adminnoticeview("+result[i].nnum+")' class='btn'>상세</button></td>";
-		    				output+="</tr>";
+	$(document).ready(function(){
+		var page = parseInt('${paging.page}');
+		$(window).scroll(function() {
+			if (parseInt($(window).scrollTop()) == $(document).height() - $(window).height()) {
+				page = page+1;
+				$.ajax ({
+					type:"post",
+					url:"noticelistajax",
+					data:{"page":page},
+					dataType:"json",
+					success:
+						function(result){
+						var output=$("#profilebox").html();
+	
+						for(var i in result){
+							if(i%2==0){
+			    				output+="<tr>";
+			    				output+="<td style='width:80px;'>"+result[i].nnum+"</td>";
+			    				output+="<td style='width:250px;'>"+result[i].ntitle+"</td>";
+			    				output+="<td>"+result[i].ndate+"</td>";
+			    				output+="<td><button onclick='noticedelete("+result[i].nnum+")' id='btn'>삭제</button><button onclick='adminnoticeview("+result[i].nnum+")' class='btn'>상세</button></td>";
+			    				output+="</tr>";
+								
+							}else{
+								output+="<tr>";
+			    				output+="<td style='width:80px;'>"+result[i].nnum+"</td>";
+			    				output+="<td style='width:250px;'>"+result[i].ntitle+"</td>";
+			    				output+="<td>"+result[i].ndate+"</td>";
+			    				output+="<td><button onclick='noticedelete("+result[i].nnum+")' id='btn'>삭제</button><button onclick='adminnoticeview("+result[i].nnum+")' class='btn'>상세</button></td>";
+			    				output+="</tr>";
+							}
+								
 						}
-							
+						$("#profilebox").html(output);
+					},
+					error:
+						function(){
+							console.log("통신실패!");
 					}
-					$("#profilebox").html(output);
-				},
-				error:
-					function(){
-						console.log("통신실패!");
-				}
-			});
-		}
+				});
+			}
+		});
 	});
 </script>
 <style>

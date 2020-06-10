@@ -5,7 +5,6 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
 <link rel="stylesheet" href="resources/css/main1.css">
 <link rel="stylesheet" href="resources/css/footer.css">
 <link rel="stylesheet" href="resources/css/adminpage.css">
@@ -82,7 +81,7 @@ body{
 					내용<br> 
 					<textarea name="ncontents" class="textbox">${notice.ncontents}</textarea><br><br>
 					첨부파일<br>
-					<c:if test="${notice.filetype eq '이미지'}">
+					<c:if test="${notice.nfiletype eq '이미지'}">
 						<img src="resources/img/notice/${notice.nfile}" id="noticeimg">
 					</c:if>
 					<input type="file" name="nfilefile" value="${notice.nfilefile}" class="inputbox">

@@ -28,6 +28,13 @@
 	#bookingSuccess{
 		padding: 20px;
 	}
+	
+	#bookingSuccess button{
+	border-radius:50px;
+	width:120px;
+	height:40px;
+	border:none;
+	}
 </style>
 
 </head>

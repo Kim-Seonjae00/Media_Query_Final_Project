@@ -48,7 +48,8 @@ public class OrdersController {
 	
 	//결제 화면 이동
 	@RequestMapping(value="/orderspayform")
-	public ModelAndView orderPayForm(@RequestParam("mid") String mid,@RequestParam("ordersList") String ordersList, @RequestParam("sid") String sid) {
+	public ModelAndView orderPayForm(@RequestParam("mid") String mid,
+			@RequestParam("ordersList") String ordersList, @RequestParam("sid") String sid) {
 		mav = ordersService.ordersPayForm(mid, ordersList, sid);
 		
 		return mav;
@@ -56,11 +57,13 @@ public class OrdersController {
 	
 	//결제 처리
 	@RequestMapping(value="/orderspay")
-	public ModelAndView orderPay(@RequestParam("cnum") String cnum,@ModelAttribute OrdersDTO orders, @RequestParam("couponnum") int couponnum,@RequestParam("mpoint") int mpoint) throws UnsupportedEncodingException {
+	public ModelAndView orderPay(@RequestParam("cnum") String cnum,@ModelAttribute OrdersDTO orders,
+			@RequestParam("couponnum") int couponnum,@RequestParam("mpoint") int mpoint) throws UnsupportedEncodingException {
 		mav = ordersService.ordersPay(cnum, orders, couponnum, mpoint);
 				
 		return mav;
 	}
+	
 	
 	//수량 증가 처리
 	@RequestMapping(value="/updatecamount")
@@ -93,4 +96,5 @@ public class OrdersController {
 		
 		return mav;
 	}
+	
 }
